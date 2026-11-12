@@ -9,10 +9,142 @@
   --card: #ffffff;
 }
 
+html.boot-loading,
+html.boot-leaving {
+  overflow: hidden;
+}
+
+html.boot-loading body,
+html.boot-leaving body {
+  cursor: progress;
+}
+
 body {
   font-family: Inter, ui-sans-serif, system-ui, sans-serif;
   background: var(--surface);
   color: #1e293b;
+}
+
+/* Smooth first paint / page reveal */
+#app-shell,
+.login-shell {
+  opacity: 0;
+  transform: translateY(10px);
+  transition: opacity .45s ease, transform .5s cubic-bezier(.22, 1, .36, 1);
+}
+
+html.boot-ready #app-shell,
+html.boot-ready .login-shell,
+body.app-ready #app-shell,
+body.app-ready .login-shell {
+  opacity: 1;
+  transform: none;
+}
+
+.app-boot {
+  position: fixed;
+  inset: 0;
+  z-index: 9999;
+  display: grid;
+  place-items: center;
+  background:
+    radial-gradient(circle at 20% 15%, rgba(94, 234, 212, 0.35), transparent 42%),
+    radial-gradient(circle at 80% 85%, rgba(15, 118, 110, 0.18), transparent 40%),
+    #f3f4f6;
+  transition: opacity .42s ease, visibility .42s ease;
+}
+
+.app-boot.is-leaving {
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+}
+
+.app-boot-card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  padding: 1.5rem;
+  animation: bootRise .55s cubic-bezier(.22, 1, .36, 1) both;
+}
+
+.app-boot-mark {
+  width: 3.35rem;
+  height: 3.35rem;
+  border-radius: 1.05rem;
+  display: grid;
+  place-items: center;
+  color: #fff;
+  background: linear-gradient(145deg, #2dd4bf, #0f766e);
+  box-shadow: 0 14px 30px rgba(13, 148, 136, 0.28);
+  font-size: 1.25rem;
+  animation: bootPulse 1.6s ease-in-out infinite;
+}
+
+.app-boot-brand {
+  margin: 1rem 0 0;
+  font-size: 1.05rem;
+  font-weight: 800;
+  letter-spacing: -0.03em;
+  color: #0f766e;
+}
+
+.app-boot-sub {
+  margin: 0.35rem 0 0;
+  font-size: 0.8rem;
+  color: #64748b;
+}
+
+.app-boot-track {
+  margin-top: 1.25rem;
+  width: 9.5rem;
+  height: 0.28rem;
+  border-radius: 999px;
+  background: rgba(15, 118, 110, 0.12);
+  overflow: hidden;
+}
+
+.app-boot-bar {
+  display: block;
+  height: 100%;
+  width: 40%;
+  border-radius: inherit;
+  background: linear-gradient(90deg, #5eead4, #0d9488);
+  animation: bootSlide 1.05s ease-in-out infinite;
+}
+
+@keyframes bootRise {
+  from { opacity: 0; transform: translateY(12px) scale(.98); }
+  to { opacity: 1; transform: none; }
+}
+
+@keyframes bootPulse {
+  0%, 100% { transform: scale(1); }
+  50% { transform: scale(1.04); }
+}
+
+@keyframes bootSlide {
+  0% { transform: translateX(-120%); }
+  100% { transform: translateX(280%); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  #app-shell,
+  .login-shell,
+  .app-boot,
+  .app-boot-card,
+  .app-boot-mark,
+  .app-boot-bar {
+    animation: none !important;
+    transition: none !important;
+  }
+
+  #app-shell,
+  .login-shell {
+    opacity: 1;
+    transform: none;
+  }
 }
 
 /* Hugeicons helpers */

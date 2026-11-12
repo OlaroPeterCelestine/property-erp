@@ -26,7 +26,19 @@
   function enter(identity) {
     Auth.login(identity);
     showHint('Signed in — opening your portfolio…');
-    window.location.href = 'index.html';
+    document.documentElement.classList.add('boot-leaving');
+    window.PropertyERPLoader?.ensureOverlay?.();
+    const boot = document.getElementById('app-boot');
+    const sub = boot?.querySelector('.app-boot-sub');
+    if (sub) sub.textContent = 'Opening dashboard…';
+    const btn = form?.querySelector('.login-submit');
+    if (btn) {
+      btn.disabled = true;
+      btn.textContent = 'Signing in…';
+    }
+    setTimeout(() => {
+      window.location.href = 'index.html';
+    }, 280);
   }
 
   form?.addEventListener('submit', (e) => {
