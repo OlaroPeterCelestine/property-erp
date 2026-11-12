@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Sign in — Property ERP</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="js/tailwind-config.js"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="https://use.hugeicons.com/font/icons.css" />
+  <link rel="stylesheet" href="css/app.css" />
+  <link rel="stylesheet" href="css/login.css" />
+</head>
+<body class="login-body antialiased">
+  <div class="login-shell">
+    <section class="login-form-pane">
+      <div class="login-form-inner">
+        <a href="login.html" class="login-brand" aria-label="Property ERP">
+          <span class="login-brand-mark">
+            <i class="hgi-stroke hgi-building-03 text-[18px]"></i>
+          </span>
+          <span class="login-brand-name">Property ERP</span>
+        </a>
+
+        <div class="login-form-copy">
+          <h1>Welcome Back</h1>
+          <p>Log in to your Uganda property command center.</p>
+        </div>
+
+        <button type="button" id="google-signin" class="login-google">
+          <svg width="18" height="18" viewBox="0 0 18 18" aria-hidden="true">
+            <path fill="#4285F4" d="M17.64 9.2c0-.637-.057-1.251-.164-1.84H9v3.481h4.844a4.14 4.14 0 0 1-1.796 2.716v2.259h2.908c1.702-1.567 2.684-3.875 2.684-6.615Z"/>
+            <path fill="#34A853" d="M9 18c2.43 0 4.467-.806 5.956-2.18l-2.908-2.259c-.806.54-1.837.86-3.048.86-2.344 0-4.328-1.584-5.036-3.711H.957v2.332A8.997 8.997 0 0 0 9 18Z"/>
+            <path fill="#FBBC05" d="M3.964 10.71A5.41 5.41 0 0 1 3.682 9c0-.593.102-1.17.282-1.71V4.958H.957A8.996 8.996 0 0 0 0 9c0 1.452.348 2.827.957 4.042l3.007-2.332Z"/>
+            <path fill="#EA4335" d="M9 3.58c1.321 0 2.508.454 3.44 1.345l2.582-2.58C13.463.891 11.426 0 9 0A8.997 8.997 0 0 0 .957 4.958L3.964 7.29C4.672 5.163 6.656 3.58 9 3.58Z"/>
+          </svg>
+          Sign in with Google
+        </button>
+
+        <div class="login-or" role="separator"><span>or</span></div>
+
+        <form id="login-form" class="login-form" novalidate>
+          <label class="login-field">
+            <span class="login-label">Email / Phone Number</span>
+            <input id="login-email" name="email" type="text" autocomplete="username" placeholder="example@propertyerp.ug" />
+          </label>
+
+          <div class="login-field">
+            <div class="login-label-row">
+              <label for="login-password" class="login-label">Password</label>
+              <button type="button" id="forgot-password" class="login-forgot">Forgot Password?</button>
+            </div>
+            <div class="login-password-wrap">
+              <input id="login-password" name="password" type="password" autocomplete="current-password" placeholder="••••••••" />
+              <button type="button" id="toggle-password" class="login-eye" aria-label="Show password">
+                <i class="hgi-stroke hgi-view text-[16px]" id="eye-icon"></i>
+              </button>
+            </div>
+          </div>
+
+          <p id="login-hint" class="login-hint" hidden></p>
+
+          <button type="submit" class="login-submit">Sign In</button>
+        </form>
+
+        <p class="login-join">No account yet? <button type="button" id="join-free">Join for free</button></p>
+      </div>
+
+      <footer class="login-footer">
+        <div class="login-footer-links">
+          <a href="#">Privacy Policy</a>
+          <a href="#">Terms of Service</a>
+        </div>
+        <p>© 2026 PROPERTY ERP</p>
+      </footer>
+    </section>
+
+    <aside class="login-showcase" aria-label="Product highlights">
+      <div class="login-showcase-card">
+        <div class="login-hero-stage" id="login-slides">
+          <div class="login-slide is-active" data-slide="0">
+            <div class="login-hero-visual">
+              <div class="login-float login-float-trend">
+                <p class="login-float-kicker">Collection pulse</p>
+                <p class="login-float-title">Momentum: Strong</p>
+                <p class="login-float-meta">UGX collected · <span>+12% MoM</span></p>
+              </div>
+
+              <div class="login-float login-float-pool">
+                <p class="login-float-kicker">Portfolio</p>
+                <p class="login-float-big">48+</p>
+                <p class="login-float-meta">Active Kampala properties</p>
+              </div>
+
+              <div class="login-portrait-ring">
+                <img
+                  src="https://images.unsplash.com/photo-1560518883-ce09059eeffa?w=720&h=720&fit=crop"
+                  alt="Modern Kampala apartment building"
+                  width="320"
+                  height="320"
+                />
+              </div>
+
+              <div class="login-float login-float-boost">
+                <p class="login-float-kicker">Net operating income</p>
+                <div class="login-boost-row">
+                  <p class="login-float-big">UGX 72.4M</p>
+                  <span class="login-pill">+15%</span>
+                </div>
+                <div class="login-bars" aria-hidden="true">
+                  <span style="--h:42%"></span>
+                  <span style="--h:58%"></span>
+                  <span style="--h:48%"></span>
+                  <span style="--h:72%"></span>
+                  <span style="--h:64%"></span>
+                  <span style="--h:88%"></span>
+                </div>
+              </div>
+
+              <div class="login-float login-float-match">
+                <p>94%</p>
+                <span>Occupancy</span>
+              </div>
+            </div>
+
+            <div class="login-showcase-copy">
+              <h2>UGX-first Property Command</h2>
+              <p>Track rent, arrears, VAT/WHT and WhatsApp bookings across your Uganda portfolio — one teal-clean workspace for owners and managers.</p>
+            </div>
+          </div>
+
+          <div class="login-slide" data-slide="1" hidden>
+            <div class="login-hero-visual login-hero-visual-alt">
+              <div class="login-float login-float-trend">
+                <p class="login-float-kicker">WhatsApp desk</p>
+                <p class="login-float-title">Rent reminders live</p>
+                <p class="login-float-meta">Draft · send · confirm</p>
+              </div>
+              <div class="login-portrait-ring">
+                <img
+                  src="https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?w=720&h=720&fit=crop"
+                  alt="Commercial property skyline"
+                  width="320"
+                  height="320"
+                />
+              </div>
+              <div class="login-float login-float-boost">
+                <p class="login-float-kicker">Arrears cleared</p>
+                <div class="login-boost-row">
+                  <p class="login-float-big">UGX 18.2M</p>
+                  <span class="login-pill">This month</span>
+                </div>
+              </div>
+            </div>
+            <div class="login-showcase-copy">
+              <h2>WhatsApp bookings & reminders</h2>
+              <p>Book viewings and nudge overdue tenants in UGX — hand off to WhatsApp without leaving the ERP.</p>
+            </div>
+          </div>
+
+          <div class="login-slide" data-slide="2" hidden>
+            <div class="login-hero-visual login-hero-visual-alt">
+              <div class="login-float login-float-pool">
+                <p class="login-float-kicker">URA ready</p>
+                <p class="login-float-big">VAT</p>
+                <p class="login-float-meta">WHT · closing packs</p>
+              </div>
+              <div class="login-portrait-ring">
+                <img
+                  src="https://images.unsplash.com/photo-1545324418-cc1a3fa10c00?w=720&h=720&fit=crop"
+                  alt="Residential tower exterior"
+                  width="320"
+                  height="320"
+                />
+              </div>
+              <div class="login-float login-float-match">
+                <p>UGX</p>
+                <span>Primary</span>
+              </div>
+            </div>
+            <div class="login-showcase-copy">
+              <h2>Finance that fits Uganda</h2>
+              <p>Dual-currency ledgers with UGX first, USD secondary — built for directors who need clarity, not clutter.</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="login-dots" id="login-dots" role="tablist" aria-label="Highlights">
+          <button type="button" class="is-active" aria-label="Slide 1" data-dot="0"></button>
+          <button type="button" aria-label="Slide 2" data-dot="1"></button>
+          <button type="button" aria-label="Slide 3" data-dot="2"></button>
+        </div>
+      </div>
+    </aside>
+  </div>
+
+  <script src="js/auth.js"></script>
+  <script src="js/login.js"></script>
+</body>
+</html>

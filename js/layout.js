@@ -91,7 +91,9 @@
   }
 
   function renderHeader() {
-    const role = document.body.dataset.role || 'Property Manager';
+    const session = window.PropertyERPAuth?.read?.();
+    const role = session?.role || document.body.dataset.role || 'Property Manager';
+    const displayName = session?.name || 'Alex Okello';
     return `
       <header class="sticky top-0 z-20 flex items-center gap-3 px-4 py-4 sm:px-6">
         <button type="button" id="mobile-menu" class="flex h-11 w-11 items-center justify-center rounded-2xl border border-slate-200 bg-white text-slate-600 shadow-soft lg:hidden" aria-label="Open menu">
@@ -115,13 +117,13 @@
             ${hi('notification-03', 'text-[18px]')}
             <span class="absolute right-2.5 top-2.5 h-2 w-2 rounded-full bg-rose-500 ring-2 ring-white"></span>
           </button>
-          <button type="button" data-action="open-modal" data-modal="settings" class="hidden h-11 w-11 items-center justify-center rounded-full border border-slate-200 bg-white text-slate-500 shadow-soft hover:bg-slate-50 sm:flex" aria-label="Settings">
-            ${hi('settings-01', 'text-[18px]')}
+          <button type="button" id="logout-btn" class="hidden h-11 items-center gap-1.5 rounded-full border border-slate-200 bg-white px-3 text-xs font-semibold text-slate-600 shadow-soft hover:bg-slate-50 sm:inline-flex" title="Sign out">
+            ${hi('logout-01', 'text-[15px]')} Sign out
           </button>
           <button type="button" data-action="open-modal" data-modal="settings" class="flex items-center gap-2 rounded-full border border-slate-200 bg-white py-1.5 pl-1.5 pr-3 text-left shadow-soft hover:bg-slate-50" title="${role}">
             <img src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=80&h=80&fit=crop&crop=face" alt="" class="h-8 w-8 rounded-full object-cover" />
             <span class="hidden sm:block">
-              <span class="block text-xs font-semibold text-slate-800">Alex Okello</span>
+              <span class="block text-xs font-semibold text-slate-800">${displayName}</span>
               <span class="block text-[10px] text-slate-400">${role}</span>
             </span>
           </button>
@@ -179,9 +181,14 @@
         }
       });
     });
+
+    document.getElementById('logout-btn')?.addEventListener('click', () => {
+      window.PropertyERPAuth?.logout?.();
+    });
   }
 
   function init() {
+    if (window.PropertyERPAuth && !window.PropertyERPAuth.requireAuth()) return;
     const shell = document.getElementById('app-shell');
     const headerRoot = document.getElementById('header-root');
     if (!shell || !headerRoot) return;
