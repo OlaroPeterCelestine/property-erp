@@ -214,25 +214,11 @@
 .login-footer {
   display: flex;
   align-items: center;
-  justify-content: space-between;
+  justify-content: flex-start;
   gap: 1rem;
   padding-top: 1.5rem;
   color: #94a3b8;
   font-size: 0.72rem;
-}
-
-.login-footer-links {
-  display: flex;
-  gap: 1rem;
-}
-
-.login-footer a {
-  color: #94a3b8;
-  text-decoration: none;
-}
-
-.login-footer a:hover {
-  color: #0f766e;
 }
 
 .login-showcase {
