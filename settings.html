@@ -49,6 +49,34 @@
   </section>
 </div>
 
+<section id="iot-settings-embed" class="db-card p-5 sm:p-6 space-y-4">
+  <div class="flex flex-wrap items-start justify-between gap-3">
+    <div>
+      <h2 class="text-base font-bold text-slate-900">IoT meter connections</h2>
+      <p class="mt-1 text-sm text-slate-500">Connect UMEME power and NWSC water meters, tariffs, and site gateway. Manage unit links on the IoT Controls page.</p>
+    </div>
+    <a href="iot.html" class="rounded-xl border border-slate-200 bg-white px-3.5 py-2 text-sm font-medium text-slate-600 hover:bg-slate-50">Open IoT Controls</a>
+  </div>
+  <div class="grid gap-4 lg:grid-cols-2">
+    <label class="block text-sm"><span class="mb-1.5 block font-medium text-slate-700">UMEME API key</span><input id="iot-umeme-key" type="password" class="field" placeholder="umeme_live_••••" autocomplete="off" /></label>
+    <label class="block text-sm"><span class="mb-1.5 block font-medium text-slate-700">UMEME endpoint</span><input id="iot-umeme-url" type="url" class="field" value="https://api.umeme.co.ug/v1/meters" /></label>
+    <label class="block text-sm"><span class="mb-1.5 block font-medium text-slate-700">NWSC API key</span><input id="iot-nwsc-key" type="password" class="field" placeholder="nwsc_live_••••" autocomplete="off" /></label>
+    <label class="block text-sm"><span class="mb-1.5 block font-medium text-slate-700">NWSC endpoint</span><input id="iot-nwsc-url" type="url" class="field" value="https://api.nwsc.co.ug/v1/meters" /></label>
+    <label class="block text-sm"><span class="mb-1.5 block font-medium text-slate-700">Site gateway ID</span><input id="iot-gateway" type="text" class="field" value="GW-KLA-01" /></label>
+    <label class="block text-sm"><span class="mb-1.5 block font-medium text-slate-700">Site code</span><input id="iot-site" type="text" class="field" value="KAMPALA-HQ" /></label>
+    <label class="block text-sm"><span class="mb-1.5 block font-medium text-slate-700">Power tariff (UGX / kWh)</span><input id="iot-power-tariff" type="number" min="0" class="field" value="850" /></label>
+    <label class="block text-sm"><span class="mb-1.5 block font-medium text-slate-700">Water tariff (UGX / m³)</span><input id="iot-water-tariff" type="number" min="0" class="field" value="3200" /></label>
+    <label class="block text-sm"><span class="mb-1.5 block font-medium text-slate-700">Poll interval (seconds)</span><input id="iot-poll" type="number" min="10" class="field" value="30" /></label>
+    <div class="space-y-3 rounded-xl border border-slate-100 bg-slate-50/80 p-4">
+      <label class="flex items-center gap-2 text-sm text-slate-700"><input id="iot-auto-cut" type="checkbox" class="rounded border-slate-300 text-brand-500" /> Auto-suggest cut-off when rent arrears exceed policy</label>
+      <label class="flex items-center gap-2 text-sm text-slate-700"><input id="iot-notify-wa" type="checkbox" checked class="rounded border-slate-300 text-brand-500" /> Prepare WhatsApp notice on arrears disconnect</label>
+    </div>
+  </div>
+  <div class="flex justify-end">
+    <button type="button" id="iot-settings-save" class="rounded-xl bg-brand-600 px-4 py-2.5 text-sm font-semibold text-white hover:bg-brand-700">Save IoT connections</button>
+  </div>
+</section>
+
       </div>
     </main>
   </div>
@@ -61,5 +89,6 @@
   <script src="js/app.js"></script>
   <script src="js/properties-data.js"></script>
   <script src="js/whatsapp-bot.js"></script>
+  <script src="js/iot.js"></script>
 </body>
 </html>

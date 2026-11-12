@@ -26,7 +26,8 @@
             <p class="mt-1 text-sm text-slate-500">Live UMEME &amp; NWSC smart meter control — cut or restore power and water per unit across your Kampala portfolio.</p>
           </div>
           <div class="flex flex-wrap gap-2">
-            <button type="button" id="iot-sync" class="rounded-xl border border-slate-200 bg-white px-4 py-2 text-sm font-medium text-slate-600 shadow-soft hover:bg-slate-50">Sync meters</button>
+            <button type="button" id="iot-open-settings" class="rounded-xl border border-slate-200 bg-white px-4 py-2 text-sm font-medium text-slate-600 shadow-soft hover:bg-slate-50">Connections</button>
+            <button type="button" id="iot-sync" class="rounded-xl bg-slate-900 px-4 py-2 text-sm font-semibold text-white hover:bg-slate-800">Sync meters</button>
           </div>
         </div>
 
@@ -39,11 +40,39 @@
             <button type="button" data-iot-filter="power-off">Power cut</button>
             <button type="button" data-iot-filter="water-off">Water cut</button>
             <button type="button" data-iot-filter="arrears">In arrears</button>
+            <button type="button" data-iot-filter="unlinked">Not linked</button>
             <button type="button" data-iot-filter="offline">Offline</button>
           </div>
         </div>
 
         <div id="iot-grid" class="grid gap-4 md:grid-cols-2 xl:grid-cols-3"></div>
+
+        <section id="iot-settings-panel" class="db-card p-5 sm:p-6">
+          <div class="mb-4 flex flex-wrap items-start justify-between gap-3">
+            <div>
+              <h2 class="text-base font-bold text-slate-900">IoT connections &amp; tariffs</h2>
+              <p class="mt-1 text-sm text-slate-500">Link UMEME and NWSC APIs, set gateway ID, and define UGX rates used for usage cost.</p>
+            </div>
+          </div>
+          <div class="grid gap-4 lg:grid-cols-2">
+            <label class="block text-sm"><span class="mb-1.5 block font-medium text-slate-700">UMEME API key</span><input id="iot-umeme-key" type="password" class="field" placeholder="umeme_live_••••" autocomplete="off" /></label>
+            <label class="block text-sm"><span class="mb-1.5 block font-medium text-slate-700">UMEME endpoint</span><input id="iot-umeme-url" type="url" class="field" /></label>
+            <label class="block text-sm"><span class="mb-1.5 block font-medium text-slate-700">NWSC API key</span><input id="iot-nwsc-key" type="password" class="field" placeholder="nwsc_live_••••" autocomplete="off" /></label>
+            <label class="block text-sm"><span class="mb-1.5 block font-medium text-slate-700">NWSC endpoint</span><input id="iot-nwsc-url" type="url" class="field" /></label>
+            <label class="block text-sm"><span class="mb-1.5 block font-medium text-slate-700">Site gateway ID</span><input id="iot-gateway" type="text" class="field" /></label>
+            <label class="block text-sm"><span class="mb-1.5 block font-medium text-slate-700">Site code</span><input id="iot-site" type="text" class="field" /></label>
+            <label class="block text-sm"><span class="mb-1.5 block font-medium text-slate-700">Power tariff (UGX / kWh)</span><input id="iot-power-tariff" type="number" min="0" step="1" class="field" /></label>
+            <label class="block text-sm"><span class="mb-1.5 block font-medium text-slate-700">Water tariff (UGX / m³)</span><input id="iot-water-tariff" type="number" min="0" step="1" class="field" /></label>
+            <label class="block text-sm"><span class="mb-1.5 block font-medium text-slate-700">Poll interval (seconds)</span><input id="iot-poll" type="number" min="10" step="5" class="field" /></label>
+            <div class="space-y-3 rounded-xl border border-slate-100 bg-slate-50/80 p-4">
+              <label class="flex items-center gap-2 text-sm text-slate-700"><input id="iot-auto-cut" type="checkbox" class="rounded border-slate-300 text-brand-500" /> Auto-suggest cut-off when rent arrears exceed policy</label>
+              <label class="flex items-center gap-2 text-sm text-slate-700"><input id="iot-notify-wa" type="checkbox" class="rounded border-slate-300 text-brand-500" /> Prepare WhatsApp notice on arrears disconnect</label>
+            </div>
+          </div>
+          <div class="mt-5 flex justify-end">
+            <button type="button" id="iot-settings-save" class="rounded-xl bg-brand-600 px-4 py-2.5 text-sm font-semibold text-white hover:bg-brand-700">Save connections</button>
+          </div>
+        </section>
 
         <section class="db-card overflow-hidden">
           <div class="flex items-center justify-between gap-3 border-b border-slate-100 px-5 py-4">
@@ -96,6 +125,36 @@
         <div class="flex justify-end gap-2 pt-1">
           <button type="button" id="iot-confirm-cancel" class="rounded-xl border border-slate-200 px-4 py-2 text-sm font-medium text-slate-600">Cancel</button>
           <button type="button" id="iot-confirm-go" class="rounded-xl bg-slate-900 px-4 py-2 text-sm font-semibold text-white">Confirm</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div id="iot-connect" class="modal-root" aria-hidden="true">
+    <div class="modal-backdrop" data-close-connect></div>
+    <div class="modal-panel" role="dialog" aria-modal="true">
+      <div class="flex items-start justify-between gap-3 border-b border-slate-100 px-5 py-4">
+        <h2 id="iot-connect-title" class="text-lg font-bold text-slate-900">Connect meters</h2>
+        <button type="button" class="rounded-lg p-1.5 text-slate-400 hover:bg-slate-50" data-close-connect aria-label="Close">
+          <i class="hgi-stroke hgi-cancel-01 text-[18px]" aria-hidden="true"></i>
+        </button>
+      </div>
+      <div class="px-5 py-4 space-y-4">
+        <p class="text-sm text-slate-500">Pair this unit with live UMEME (power) and NWSC (water) meter serials from your Kampala gateway.</p>
+        <label class="block text-sm">
+          <span class="mb-1.5 block font-medium text-slate-700">UMEME meter ID</span>
+          <input id="iot-connect-power" type="text" class="field" placeholder="UMEME-44021" />
+        </label>
+        <label class="block text-sm">
+          <span class="mb-1.5 block font-medium text-slate-700">NWSC meter ID</span>
+          <input id="iot-connect-water" type="text" class="field" placeholder="NWSC-11802" />
+        </label>
+        <label class="flex items-center gap-2 text-sm text-slate-700">
+          <input id="iot-connect-online" type="checkbox" class="rounded border-slate-300 text-brand-500" /> Mark gateway online after linking
+        </label>
+        <div class="flex justify-end gap-2 pt-1">
+          <button type="button" id="iot-connect-cancel" class="rounded-xl border border-slate-200 px-4 py-2 text-sm font-medium text-slate-600">Cancel</button>
+          <button type="button" id="iot-connect-save" class="rounded-xl bg-slate-900 px-4 py-2 text-sm font-semibold text-white">Save link</button>
         </div>
       </div>
     </div>
