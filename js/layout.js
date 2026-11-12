@@ -64,7 +64,7 @@
     return `
       <aside id="sidebar" class="sticky top-0 flex h-screen shrink-0 flex-col px-3 py-5 ${collapsed ? 'collapsed' : ''}">
         <div class="brand-wrap mb-6 flex items-center gap-2.5 px-1">
-          <div class="flex h-10 w-10 shrink-0 items-center justify-center rounded-2xl bg-gradient-to-br from-brand-300 to-brand-600 text-white shadow-md shadow-brand-400/30">
+          <div class="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-brand-700 text-white">
             ${hi('building-03', 'text-[18px]')}
           </div>
           <div class="brand-text min-w-0 flex-1">
@@ -79,8 +79,8 @@
 
         <nav class="sidebar-nav flex-1 space-y-0.5 overflow-y-auto text-[13px] font-medium">${navHtml}</nav>
 
-        <div class="cta-card mt-3 rounded-[1.35rem] bg-gradient-to-br from-slate-50 via-white to-brand-50 p-4 ring-1 ring-slate-100">
-          <div class="mb-2 flex h-9 w-9 items-center justify-center rounded-xl bg-brand-400 text-white">${hi('calendar-check', 'text-[16px]')}</div>
+        <div class="cta-card mt-3 rounded-2xl border border-slate-200 bg-white p-4">
+          <div class="mb-2 flex h-9 w-9 items-center justify-center rounded-lg bg-brand-700 text-white">${hi('calendar-check', 'text-[16px]')}</div>
           <p class="text-sm font-semibold text-slate-900">Try Month Close</p>
           <p class="mt-1 text-[11px] leading-relaxed text-slate-500">Run rent, VAT/WHT and closing from one checklist.</p>
           <div class="mt-3 grid grid-cols-2 gap-2">

@@ -30,7 +30,7 @@
     window.PropertyERPLoader?.ensureOverlay?.();
     const boot = document.getElementById('app-boot');
     const sub = boot?.querySelector('.app-boot-sub');
-    if (sub) sub.textContent = 'Opening dashboard…';
+    if (sub) sub.textContent = 'Loading';
     const btn = form?.querySelector('.login-submit');
     if (btn) {
       btn.disabled = true;

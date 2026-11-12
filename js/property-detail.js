@@ -308,7 +308,7 @@
       <section class="db-card overflow-hidden">
         <div class="relative h-52 sm:h-72">
           <img id="property-cover-image" src="${cover}" alt="${p.name}" class="h-full w-full object-cover" />
-          <div class="absolute inset-0 bg-gradient-to-t from-slate-950/75 via-slate-950/25 to-transparent"></div>
+          <div class="absolute inset-0" style="background:rgba(15,23,42,.5)"></div>
           <div class="property-cover-actions">
             <button type="button" data-action="open-modal" data-modal="upload-property-image" class="inline-flex items-center gap-1.5 rounded-full border border-white/25 bg-slate-950/45 px-3 py-1.5 text-xs font-medium text-white backdrop-blur hover:bg-slate-950/60">
               ${hi('image-upload-01', 'text-[14px]')} Change photo

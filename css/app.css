@@ -29,8 +29,7 @@ body {
 #app-shell,
 .login-shell {
   opacity: 0;
-  transform: translateY(10px);
-  transition: opacity .45s ease, transform .5s cubic-bezier(.22, 1, .36, 1);
+  transition: opacity .2s ease;
 }
 
 html.boot-ready #app-shell,
@@ -38,7 +37,6 @@ html.boot-ready .login-shell,
 body.app-ready #app-shell,
 body.app-ready .login-shell {
   opacity: 1;
-  transform: none;
 }
 
 .app-boot {
@@ -47,11 +45,8 @@ body.app-ready .login-shell {
   z-index: 9999;
   display: grid;
   place-items: center;
-  background:
-    radial-gradient(circle at 20% 15%, rgba(94, 234, 212, 0.35), transparent 42%),
-    radial-gradient(circle at 80% 85%, rgba(15, 118, 110, 0.18), transparent 40%),
-    #f3f4f6;
-  transition: opacity .42s ease, visibility .42s ease;
+  background: #f3f4f6;
+  transition: opacity .2s ease, visibility .2s ease;
 }
 
 .app-boot.is-leaving {
@@ -65,76 +60,61 @@ body.app-ready .login-shell {
   flex-direction: column;
   align-items: center;
   text-align: center;
-  padding: 1.5rem;
-  animation: bootRise .55s cubic-bezier(.22, 1, .36, 1) both;
+  padding: 1rem;
 }
 
 .app-boot-mark {
-  width: 3.35rem;
-  height: 3.35rem;
-  border-radius: 1.05rem;
+  width: 2.5rem;
+  height: 2.5rem;
+  border-radius: 0.65rem;
   display: grid;
   place-items: center;
   color: #fff;
-  background: linear-gradient(145deg, #2dd4bf, #0f766e);
-  box-shadow: 0 14px 30px rgba(13, 148, 136, 0.28);
-  font-size: 1.25rem;
-  animation: bootPulse 1.6s ease-in-out infinite;
+  background: #0f766e;
+  font-size: 1rem;
 }
 
 .app-boot-brand {
-  margin: 1rem 0 0;
-  font-size: 1.05rem;
-  font-weight: 800;
-  letter-spacing: -0.03em;
-  color: #0f766e;
+  margin: 0.75rem 0 0;
+  font-size: 0.95rem;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  color: #0f172a;
 }
 
 .app-boot-sub {
-  margin: 0.35rem 0 0;
-  font-size: 0.8rem;
+  margin: 0.25rem 0 0;
+  font-size: 0.75rem;
   color: #64748b;
 }
 
 .app-boot-track {
-  margin-top: 1.25rem;
-  width: 9.5rem;
-  height: 0.28rem;
+  margin-top: 1rem;
+  width: 7rem;
+  height: 2px;
   border-radius: 999px;
-  background: rgba(15, 118, 110, 0.12);
+  background: #e2e8f0;
   overflow: hidden;
 }
 
 .app-boot-bar {
   display: block;
   height: 100%;
-  width: 40%;
+  width: 35%;
   border-radius: inherit;
-  background: linear-gradient(90deg, #5eead4, #0d9488);
-  animation: bootSlide 1.05s ease-in-out infinite;
-}
-
-@keyframes bootRise {
-  from { opacity: 0; transform: translateY(12px) scale(.98); }
-  to { opacity: 1; transform: none; }
-}
-
-@keyframes bootPulse {
-  0%, 100% { transform: scale(1); }
-  50% { transform: scale(1.04); }
+  background: #0d9488;
+  animation: bootSlide 0.9s linear infinite;
 }
 
 @keyframes bootSlide {
-  0% { transform: translateX(-120%); }
-  100% { transform: translateX(280%); }
+  0% { transform: translateX(-100%); }
+  100% { transform: translateX(300%); }
 }
 
 @media (prefers-reduced-motion: reduce) {
   #app-shell,
   .login-shell,
   .app-boot,
-  .app-boot-card,
-  .app-boot-mark,
   .app-boot-bar {
     animation: none !important;
     transition: none !important;
@@ -143,7 +123,6 @@ body.app-ready .login-shell {
   #app-shell,
   .login-shell {
     opacity: 1;
-    transform: none;
   }
 }
 
@@ -316,32 +295,12 @@ body.app-ready .login-shell {
   overflow: hidden;
 }
 
-.db-kpi::after {
-  content: '';
-  position: absolute;
-  inset: auto -10% -35% auto;
-  width: 120px;
-  height: 120px;
-  border-radius: 999px;
-  background: radial-gradient(circle, rgba(20, 184, 166, 0.08), transparent 70%);
-  pointer-events: none;
-}
-
-.prop-card {
-  transition: transform .18s ease, box-shadow .18s ease;
-}
-
-.prop-card:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 10px 30px rgba(15, 23, 42, 0.08);
-}
-
 .prop-card img {
-  transition: transform .35s ease;
+  transition: none;
 }
 
 .prop-card:hover img {
-  transform: scale(1.04);
+  transform: none;
 }
 
 body.modal-open {
@@ -468,7 +427,7 @@ body.modal-open {
   justify-content: space-between;
   gap: 0.75rem;
   padding: 0.9rem 1rem;
-  background: linear-gradient(135deg, #128c7e, #25d366);
+  background: #128c7e;
 }
 
 .wa-messages {
@@ -968,11 +927,11 @@ body.modal-open {
   display: block;
   height: 100%;
   border-radius: inherit;
-  background: linear-gradient(90deg, #fbbf24, #d97706);
+  background: #d97706;
 }
 
 .iot-usage-bar.water span {
-  background: linear-gradient(90deg, #38bdf8, #0284c7);
+  background: #0284c7;
 }
 
 .field {
@@ -1003,11 +962,6 @@ body.modal-open {
   width: 100%;
   height: 100%;
   object-fit: cover;
-  transition: transform .45s ease;
-}
-
-.property-card:hover .property-card-media img {
-  transform: scale(1.04);
 }
 
 .property-card-overlay {
@@ -1017,7 +971,7 @@ body.modal-open {
   flex-direction: column;
   justify-content: space-between;
   padding: 0.9rem;
-  background: linear-gradient(180deg, rgba(15, 23, 42, 0.15), rgba(15, 23, 42, 0.72));
+  background: rgba(15, 23, 42, 0.45);
 }
 
 .property-card-bars {
@@ -1044,12 +998,12 @@ body.modal-open {
   display: block;
   height: 100%;
   border-radius: inherit;
-  background: linear-gradient(90deg, #5eead4, #0d9488);
+  background: #0d9488;
   font-style: normal;
 }
 
 .property-card-bars .bar.collect i {
-  background: linear-gradient(90deg, #fbbf24, #d97706);
+  background: #d97706;
 }
 
 .property-gallery {

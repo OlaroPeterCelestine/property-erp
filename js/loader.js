@@ -1,6 +1,6 @@
 (function () {
-  const MIN_MS = 480;
-  const FADE_MS = 420;
+  const MIN_MS = 220;
+  const FADE_MS = 180;
   const started = performance.now();
   let done = false;
 
@@ -20,7 +20,7 @@
           </svg>
         </div>
         <p class="app-boot-brand">Property ERP</p>
-        <p class="app-boot-sub">Preparing your workspace</p>
+        <p class="app-boot-sub">Loading</p>
         <div class="app-boot-track" aria-hidden="true"><span class="app-boot-bar"></span></div>
       </div>`;
     (document.body || document.documentElement).appendChild(el);
@@ -66,7 +66,7 @@
       const boot = document.getElementById('app-boot');
       boot?.classList.remove('is-leaving');
       const sub = boot?.querySelector('.app-boot-sub');
-      if (sub) sub.textContent = 'Loading…';
+      if (sub) sub.textContent = 'Loading';
       requestAnimationFrame(() => {
         setTimeout(() => {
           window.location.href = url.href;
