@@ -19,6 +19,9 @@
       { id: 'suppliers', href: 'suppliers.html', label: 'Suppliers', icon: 'user-multiple' },
       { id: 'maintenance', href: 'maintenance.html', label: 'Maintenance', icon: 'wrench-01' },
     ]},
+    { section: 'Smart Home', items: [
+      { id: 'iot', href: 'iot.html', label: 'IoT Controls', icon: 'wifi-01' },
+    ]},
     { section: 'Finance & Tax', items: [
       { id: 'accounting', href: 'accounting.html', label: 'General Ledger', icon: 'analytics-01' },
       { id: 'bank', href: 'bank.html', label: 'Bank Recon', icon: 'bank' },

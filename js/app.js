@@ -432,6 +432,10 @@
     if (window.PropertyERPTables) window.PropertyERPTables.refresh();
   }
 
+  window.PropertyERP = window.PropertyERP || {};
+  window.PropertyERP.toast = toast;
+  window.PropertyERP.openModal = openModal;
+
   if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', init);
   else init();
 })();

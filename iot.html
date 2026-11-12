@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Property ERP — IoT Controls</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="js/tailwind-config.js"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="https://use.hugeicons.com/font/icons.css" />
+  <link rel="stylesheet" href="css/app.css" />
+</head>
+<body class="bg-surface text-slate-800 antialiased" data-page="iot" data-role="Property Manager">
+  <div id="app-shell" class="flex min-h-screen">
+    <main class="min-w-0 flex-1">
+      <div id="header-root"></div>
+      <div class="space-y-6 p-4 sm:p-6">
+        <div class="flex flex-wrap items-center justify-between gap-3">
+          <div>
+            <h1 class="text-xl font-bold tracking-tight text-slate-900">IoT House Controls</h1>
+            <p class="mt-1 text-sm text-slate-500">Remotely cut or restore power and water per unit — Kampala smart meters (demo).</p>
+          </div>
+          <div class="flex flex-wrap gap-2">
+            <button type="button" id="iot-reset" class="rounded-xl border border-slate-200 bg-white px-4 py-2 text-sm font-medium text-slate-600 shadow-soft hover:bg-slate-50">Reset demo</button>
+          </div>
+        </div>
+
+        <div id="iot-kpis" class="grid gap-4 sm:grid-cols-2 xl:grid-cols-4"></div>
+
+        <div class="flex flex-wrap items-center gap-2">
+          <input id="iot-search" type="search" placeholder="Search property, unit, tenant, meter…" class="min-w-[220px] flex-1 rounded-xl border border-slate-200 bg-white px-3.5 py-2.5 text-sm outline-none focus:border-brand-300 focus:ring-2 focus:ring-brand-100 sm:max-w-sm" />
+          <div class="iot-filters">
+            <button type="button" data-iot-filter="all" class="is-active">All</button>
+            <button type="button" data-iot-filter="power-off">Power cut</button>
+            <button type="button" data-iot-filter="water-off">Water cut</button>
+            <button type="button" data-iot-filter="arrears">In arrears</button>
+            <button type="button" data-iot-filter="offline">Offline</button>
+          </div>
+        </div>
+
+        <div id="iot-grid" class="grid gap-4 md:grid-cols-2 xl:grid-cols-3"></div>
+
+        <section class="db-card overflow-hidden">
+          <div class="flex items-center justify-between gap-3 border-b border-slate-100 px-5 py-4">
+            <div>
+              <h2 class="text-sm font-bold text-slate-900">Cut-off & restore log</h2>
+              <p class="text-xs text-slate-400">Audit trail of IoT actions on this device</p>
+            </div>
+          </div>
+          <div class="overflow-x-auto">
+            <table class="w-full min-w-[720px] text-left text-sm">
+              <thead class="bg-slate-50 text-xs uppercase tracking-wide text-slate-400">
+                <tr>
+                  <th class="px-5 py-3 font-medium">Event</th>
+                  <th class="px-5 py-3 font-medium">Unit</th>
+                  <th class="px-5 py-3 font-medium">Utility</th>
+                  <th class="px-5 py-3 font-medium">Action</th>
+                  <th class="px-5 py-3 font-medium">When</th>
+                </tr>
+              </thead>
+              <tbody id="iot-log" class="divide-y divide-slate-100"></tbody>
+            </table>
+          </div>
+        </section>
+      </div>
+    </main>
+  </div>
+
+  <div id="iot-confirm" class="modal-root" aria-hidden="true">
+    <div class="modal-backdrop" data-close-iot></div>
+    <div class="modal-panel" role="dialog" aria-modal="true">
+      <div class="flex items-start justify-between gap-3 border-b border-slate-100 px-5 py-4">
+        <h2 id="iot-confirm-title" class="text-lg font-bold text-slate-900">Confirm</h2>
+        <button type="button" class="rounded-lg p-1.5 text-slate-400 hover:bg-slate-50" data-close-iot aria-label="Close">
+          <i class="hgi-stroke hgi-cancel-01 text-[18px]" aria-hidden="true"></i>
+        </button>
+      </div>
+      <div class="px-5 py-4 space-y-4">
+        <p id="iot-confirm-body" class="text-sm text-slate-600"></p>
+        <label class="block text-sm">
+          <span class="mb-1.5 block font-medium text-slate-700">Reason</span>
+          <select id="iot-reason" class="w-full rounded-xl border border-slate-200 bg-white px-3 py-2.5 text-sm outline-none focus:border-brand-300">
+            <option>Rent arrears</option>
+            <option>Maintenance / safety</option>
+            <option>Unit vacant</option>
+            <option>Emergency</option>
+            <option>Manual cut-off</option>
+            <option>Manual restore</option>
+          </select>
+        </label>
+        <div class="flex justify-end gap-2 pt-1">
+          <button type="button" id="iot-confirm-cancel" class="rounded-xl border border-slate-200 px-4 py-2 text-sm font-medium text-slate-600">Cancel</button>
+          <button type="button" id="iot-confirm-go" class="rounded-xl bg-slate-900 px-4 py-2 text-sm font-semibold text-white">Confirm</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script src="js/money.js"></script>
+  <script src="js/auth.js"></script>
+  <script src="js/layout.js"></script>
+  <script src="js/uploads.js"></script>
+  <script src="js/tables.js"></script>
+  <script src="js/app.js"></script>
+  <script src="js/properties-data.js"></script>
+  <script src="js/whatsapp-bot.js"></script>
+  <script src="js/iot.js"></script>
+</body>
+</html>
