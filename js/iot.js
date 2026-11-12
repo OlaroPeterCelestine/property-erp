@@ -85,17 +85,17 @@
       <div class="db-card p-5">
         <p class="text-sm text-slate-500">Power cut off</p>
         <p class="mt-1 text-2xl font-bold text-amber-600">${c.powerOff}</p>
-        <p class="mt-1 text-xs text-slate-400">UMEME smart breakers</p>
+        <p class="mt-1 text-xs text-slate-400">UMEME prepaid breakers</p>
       </div>
       <div class="db-card p-5">
         <p class="text-sm text-slate-500">Water cut off</p>
         <p class="mt-1 text-2xl font-bold text-sky-600">${c.waterOff}</p>
-        <p class="mt-1 text-xs text-slate-400">NWSC valve controllers</p>
+        <p class="mt-1 text-xs text-slate-400">NWSC smart valves</p>
       </div>
       <div class="db-card p-5">
-        <p class="text-sm text-slate-500">Live control</p>
+        <p class="text-sm text-slate-500">Gateway health</p>
         <p class="mt-1 text-2xl font-bold text-brand-600">${Math.round((c.online / Math.max(c.total, 1)) * 100)}%</p>
-        <p class="mt-1 text-xs text-slate-400">Devices reachable now</p>
+        <p class="mt-1 text-xs text-slate-400">Meters responding · last poll just now</p>
       </div>`;
   }
 
@@ -177,7 +177,7 @@
     if (!root) return;
     const log = loadLog().slice(0, 12);
     if (!log.length) {
-      root.innerHTML = `<tr><td colspan="5" class="px-5 py-8 text-center text-sm text-slate-400">No cut-off or restore events yet.</td></tr>`;
+      root.innerHTML = `<tr><td colspan="5" class="px-5 py-8 text-center text-sm text-slate-400">No gateway commands in the current shift.</td></tr>`;
       return;
     }
     root.innerHTML = log.map((e) => {
@@ -207,7 +207,7 @@
     const device = devices.find((d) => d.id === id);
     if (!device) return;
     if (!device.online) {
-      toast('Device offline — reconnect the gateway first.', 'error');
+      toast('Meter gateway offline — check site connectivity before commanding.', 'error');
       return;
     }
     if (utility === 'both') {
@@ -221,11 +221,11 @@
     saveDevices(devices);
     refresh();
     const label = utility === 'both' ? 'Power & water' : utility === 'power' ? 'Power' : 'Water';
-    toast(`${label} ${on ? 'restored' : 'cut off'} for ${device.property} · ${device.unit}.`);
+    toast(`${label} command sent — ${on ? 'restored' : 'cut off'} at ${device.property} · ${device.unit}.`);
 
     if (!on && reason === 'Rent arrears' && window.PropertyERPWhatsApp?.WA_NUMBER) {
       const msg = encodeURIComponent(
-        `Property ERP IoT notice\n${device.property} · Unit ${device.unit}\n${label} has been cut off due to rent arrears (${ugx(device.arrearsUsd)}).\nPay to restore supply.`,
+        `Property ERP utility notice\n${device.property} · Unit ${device.unit}\n${label} supply has been disconnected for rent arrears (${ugx(device.arrearsUsd)}).\nSettle the balance to request restore.`,
       );
       // Soft handoff — do not auto-open every time; update WhatsApp handoff if panel exists
       const handoff = document.getElementById('wa-handoff');
@@ -242,12 +242,12 @@
     if (!modal || !title || !body) return;
     const device = devices.find((d) => d.id === opts.id);
     const utilLabel = opts.utility === 'both' ? 'power and water' : opts.utility;
-    title.textContent = opts.on ? `Restore ${utilLabel}?` : `Cut off ${utilLabel}?`;
+    title.textContent = opts.on ? `Restore ${utilLabel}` : `Disconnect ${utilLabel}`;
     body.textContent = opts.on
-      ? `This will restore ${utilLabel} for ${device?.property} · ${device?.unit} (${device?.tenant}).`
-      : `This will remotely cut ${utilLabel} for ${device?.property} · ${device?.unit} (${device?.tenant}). The tenant will lose supply until you restore it.`;
+      ? `Confirm restore of ${utilLabel} for ${device?.property} · ${device?.unit} (${device?.tenant}). The command will be queued to the on-site gateway within a few seconds.`
+      : `Confirm remote disconnect of ${utilLabel} for ${device?.property} · ${device?.unit} (${device?.tenant}). Supply will stop until an authorised restore is sent.`;
     if (reason) {
-      reason.value = opts.on ? 'Manual restore' : (device?.arrearsUsd > 0 ? 'Rent arrears' : 'Manual cut-off');
+      reason.value = opts.on ? 'Authorised restore' : (device?.arrearsUsd > 0 ? 'Rent arrears' : 'Operator disconnect');
       reason.disabled = !!opts.on;
     }
     modal.classList.add('open');
@@ -297,17 +297,31 @@
     document.getElementById('iot-confirm')?.querySelector('[data-close-iot]')?.addEventListener('click', closeConfirm);
     document.getElementById('iot-confirm-go')?.addEventListener('click', () => {
       if (!pending) return;
-      const reason = document.getElementById('iot-reason')?.value || (pending.on ? 'Manual restore' : 'Manual cut-off');
+      const reason = document.getElementById('iot-reason')?.value || (pending.on ? 'Authorised restore' : 'Operator disconnect');
       applyToggle(pending.id, pending.utility, pending.on, reason);
       closeConfirm();
     });
 
-    document.getElementById('iot-reset')?.addEventListener('click', () => {
-      devices = SEED.map((d) => ({ ...d }));
-      saveDevices(devices);
-      localStorage.removeItem(LOG_STORE);
-      refresh();
-      toast('IoT demo devices reset.');
+    document.getElementById('iot-sync')?.addEventListener('click', () => {
+      const btn = document.getElementById('iot-sync');
+      if (btn) {
+        btn.disabled = true;
+        btn.textContent = 'Syncing…';
+      }
+      setTimeout(() => {
+        // Simulate a live poll: flip one offline meter online occasionally
+        const offline = devices.filter((d) => !d.online);
+        if (offline.length && Math.random() > 0.35) {
+          offline[0].online = true;
+          saveDevices(devices);
+        }
+        refresh();
+        if (btn) {
+          btn.disabled = false;
+          btn.textContent = 'Sync meters';
+        }
+        toast(`Meter sync complete — ${counts().online}/${counts().total} gateways online.`);
+      }, 900);
     });
   }
 
