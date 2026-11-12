@@ -11,41 +11,95 @@
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="https://use.hugeicons.com/font/icons.css" />
   <link rel="stylesheet" href="css/app.css" />
-  <script>
-    document.documentElement.classList.add('boot-loading');
-  </script>
+  <script>document.documentElement.classList.add('boot-loading');</script>
 </head>
 <body class="bg-surface text-slate-800 antialiased" data-page="users" data-role="System Administrator">
   <div id="app-shell" class="flex min-h-screen">
     <main class="min-w-0 flex-1">
       <div id="header-root"></div>
       <div class="space-y-6 p-4 sm:p-6">
-<div class="flex flex-wrap items-center justify-between gap-3"><div><h1 class="text-xl font-bold tracking-tight text-slate-900">Users &amp; RBAC</h1><p class="mt-1 text-sm text-slate-500">Roles restrict financial ops and property scope</p></div><div class="flex flex-wrap gap-2"><button type="button" data-action="open-modal" data-modal="add-user" class="rounded-xl bg-slate-900 px-4 py-2 text-sm font-semibold text-white">Invite User</button></div></div><section class="db-card overflow-hidden"><div data-table-toolbar class="flex flex-wrap items-center gap-2 border-b border-slate-100 p-4"><input data-table-search type="search" placeholder="Search..." class="rounded-lg border border-slate-200 bg-slate-50 px-3 py-2 text-sm outline-none focus:border-brand-300 focus:bg-white" /></div><div class="overflow-x-auto"><table class="w-full min-w-[800px] text-left text-sm"><thead class="bg-slate-50 text-xs uppercase tracking-wide text-slate-400"><tr><th class="px-5 py-3 font-medium">User</th><th class="px-5 py-3 font-medium">Email</th><th class="px-5 py-3 font-medium">Role</th><th class="px-5 py-3 font-medium">Property scope</th><th class="px-5 py-3 font-medium">MFA</th><th class="px-5 py-3 font-medium">Status</th></tr></thead><tbody class="divide-y divide-slate-100" data-filterable>
-<tr data-status="Active" data-role="Accountant" class="hover:bg-slate-50/70"><td class="px-5 py-3 font-medium">Alex Okello</td><td class="px-5 py-3">alex@propertyerp.ug</td><td class="px-5 py-3">Accountant</td><td class="px-5 py-3">Kololo, Ntinda</td><td class="px-5 py-3">Off</td><td class="px-5 py-3"><span class="rounded-full bg-brand-50 text-brand-600 px-2.5 py-1 text-xs font-medium">Active</span></td></tr>
-<tr data-status="Inactive" data-role="Cashier" class="hover:bg-slate-50/70"><td class="px-5 py-3 font-medium">Grace Atim</td><td class="px-5 py-3">grace@propertyerp.ug</td><td class="px-5 py-3">Cashier</td><td class="px-5 py-3">Kololo, Ntinda</td><td class="px-5 py-3">On</td><td class="px-5 py-3"><span class="rounded-full bg-slate-100 text-slate-600 px-2.5 py-1 text-xs font-medium">Inactive</span></td></tr>
-<tr data-status="Active" data-role="Auditor" class="hover:bg-slate-50/70"><td class="px-5 py-3 font-medium">Peter Ssebunya</td><td class="px-5 py-3">peter@propertyerp.ug</td><td class="px-5 py-3">Auditor</td><td class="px-5 py-3">All</td><td class="px-5 py-3">Off</td><td class="px-5 py-3"><span class="rounded-full bg-brand-50 text-brand-600 px-2.5 py-1 text-xs font-medium">Active</span></td></tr>
-<tr data-status="Active" data-role="Finance Approver" class="hover:bg-slate-50/70"><td class="px-5 py-3 font-medium">Audit Desk</td><td class="px-5 py-3">audit@propertyerp.ug</td><td class="px-5 py-3">Finance Approver</td><td class="px-5 py-3">Kololo, Ntinda</td><td class="px-5 py-3">On</td><td class="px-5 py-3"><span class="rounded-full bg-brand-50 text-brand-600 px-2.5 py-1 text-xs font-medium">Active</span></td></tr>
-<tr data-status="Active" data-role="Procurement Officer" class="hover:bg-slate-50/70"><td class="px-5 py-3 font-medium">Mary Nabirye</td><td class="px-5 py-3">mary@propertyerp.ug</td><td class="px-5 py-3">Procurement Officer</td><td class="px-5 py-3">Kololo, Ntinda</td><td class="px-5 py-3">Off</td><td class="px-5 py-3"><span class="rounded-full bg-brand-50 text-brand-600 px-2.5 py-1 text-xs font-medium">Active</span></td></tr>
-<tr data-status="Inactive" data-role="Property Manager" class="hover:bg-slate-50/70"><td class="px-5 py-3 font-medium">Jonah Kiggundu</td><td class="px-5 py-3">jonah@propertyerp.ug</td><td class="px-5 py-3">Property Manager</td><td class="px-5 py-3">All</td><td class="px-5 py-3">On</td><td class="px-5 py-3"><span class="rounded-full bg-slate-100 text-slate-600 px-2.5 py-1 text-xs font-medium">Inactive</span></td></tr>
-<tr data-status="Active" data-role="Accountant" class="hover:bg-slate-50/70"><td class="px-5 py-3 font-medium">Irene Achieng</td><td class="px-5 py-3">irene@propertyerp.ug</td><td class="px-5 py-3">Accountant</td><td class="px-5 py-3">Kololo, Ntinda</td><td class="px-5 py-3">Off</td><td class="px-5 py-3"><span class="rounded-full bg-brand-50 text-brand-600 px-2.5 py-1 text-xs font-medium">Active</span></td></tr>
-<tr data-status="Active" data-role="Cashier" class="hover:bg-slate-50/70"><td class="px-5 py-3 font-medium">Samuel Ocen</td><td class="px-5 py-3">samuel@propertyerp.ug</td><td class="px-5 py-3">Cashier</td><td class="px-5 py-3">Kololo, Ntinda</td><td class="px-5 py-3">On</td><td class="px-5 py-3"><span class="rounded-full bg-brand-50 text-brand-600 px-2.5 py-1 text-xs font-medium">Active</span></td></tr>
-<tr data-status="Active" data-role="Auditor" class="hover:bg-slate-50/70"><td class="px-5 py-3 font-medium">Alex Okello</td><td class="px-5 py-3">alex@propertyerp.ug</td><td class="px-5 py-3">Auditor</td><td class="px-5 py-3">All</td><td class="px-5 py-3">Off</td><td class="px-5 py-3"><span class="rounded-full bg-brand-50 text-brand-600 px-2.5 py-1 text-xs font-medium">Active</span></td></tr>
-<tr data-status="Inactive" data-role="Finance Approver" class="hover:bg-slate-50/70"><td class="px-5 py-3 font-medium">Grace Atim</td><td class="px-5 py-3">grace@propertyerp.ug</td><td class="px-5 py-3">Finance Approver</td><td class="px-5 py-3">Kololo, Ntinda</td><td class="px-5 py-3">On</td><td class="px-5 py-3"><span class="rounded-full bg-slate-100 text-slate-600 px-2.5 py-1 text-xs font-medium">Inactive</span></td></tr>
-<tr data-status="Active" data-role="Procurement Officer" class="hover:bg-slate-50/70"><td class="px-5 py-3 font-medium">Peter Ssebunya</td><td class="px-5 py-3">peter@propertyerp.ug</td><td class="px-5 py-3">Procurement Officer</td><td class="px-5 py-3">Kololo, Ntinda</td><td class="px-5 py-3">Off</td><td class="px-5 py-3"><span class="rounded-full bg-brand-50 text-brand-600 px-2.5 py-1 text-xs font-medium">Active</span></td></tr>
-<tr data-status="Active" data-role="Property Manager" class="hover:bg-slate-50/70"><td class="px-5 py-3 font-medium">Audit Desk</td><td class="px-5 py-3">audit@propertyerp.ug</td><td class="px-5 py-3">Property Manager</td><td class="px-5 py-3">All</td><td class="px-5 py-3">On</td><td class="px-5 py-3"><span class="rounded-full bg-brand-50 text-brand-600 px-2.5 py-1 text-xs font-medium">Active</span></td></tr>
-<tr data-status="Active" data-role="Accountant" class="hover:bg-slate-50/70"><td class="px-5 py-3 font-medium">Mary Nabirye</td><td class="px-5 py-3">mary@propertyerp.ug</td><td class="px-5 py-3">Accountant</td><td class="px-5 py-3">Kololo, Ntinda</td><td class="px-5 py-3">Off</td><td class="px-5 py-3"><span class="rounded-full bg-brand-50 text-brand-600 px-2.5 py-1 text-xs font-medium">Active</span></td></tr>
-<tr data-status="Inactive" data-role="Cashier" class="hover:bg-slate-50/70"><td class="px-5 py-3 font-medium">Jonah Kiggundu</td><td class="px-5 py-3">jonah@propertyerp.ug</td><td class="px-5 py-3">Cashier</td><td class="px-5 py-3">Kololo, Ntinda</td><td class="px-5 py-3">On</td><td class="px-5 py-3"><span class="rounded-full bg-slate-100 text-slate-600 px-2.5 py-1 text-xs font-medium">Inactive</span></td></tr>
-<tr data-status="Active" data-role="Auditor" class="hover:bg-slate-50/70"><td class="px-5 py-3 font-medium">Irene Achieng</td><td class="px-5 py-3">irene@propertyerp.ug</td><td class="px-5 py-3">Auditor</td><td class="px-5 py-3">All</td><td class="px-5 py-3">Off</td><td class="px-5 py-3"><span class="rounded-full bg-brand-50 text-brand-600 px-2.5 py-1 text-xs font-medium">Active</span></td></tr>
-<tr data-status="Active" data-role="Finance Approver" class="hover:bg-slate-50/70"><td class="px-5 py-3 font-medium">Samuel Ocen</td><td class="px-5 py-3">samuel@propertyerp.ug</td><td class="px-5 py-3">Finance Approver</td><td class="px-5 py-3">Kololo, Ntinda</td><td class="px-5 py-3">On</td><td class="px-5 py-3"><span class="rounded-full bg-brand-50 text-brand-600 px-2.5 py-1 text-xs font-medium">Active</span></td></tr>
-<tr data-status="Active" data-role="Procurement Officer" class="hover:bg-slate-50/70"><td class="px-5 py-3 font-medium">Alex Okello</td><td class="px-5 py-3">alex@propertyerp.ug</td><td class="px-5 py-3">Procurement Officer</td><td class="px-5 py-3">Kololo, Ntinda</td><td class="px-5 py-3">Off</td><td class="px-5 py-3"><span class="rounded-full bg-brand-50 text-brand-600 px-2.5 py-1 text-xs font-medium">Active</span></td></tr>
-<tr data-status="Inactive" data-role="Property Manager" class="hover:bg-slate-50/70"><td class="px-5 py-3 font-medium">Grace Atim</td><td class="px-5 py-3">grace@propertyerp.ug</td><td class="px-5 py-3">Property Manager</td><td class="px-5 py-3">All</td><td class="px-5 py-3">On</td><td class="px-5 py-3"><span class="rounded-full bg-slate-100 text-slate-600 px-2.5 py-1 text-xs font-medium">Inactive</span></td></tr>
-<tr data-status="Active" data-role="Accountant" class="hover:bg-slate-50/70"><td class="px-5 py-3 font-medium">Peter Ssebunya</td><td class="px-5 py-3">peter@propertyerp.ug</td><td class="px-5 py-3">Accountant</td><td class="px-5 py-3">Kololo, Ntinda</td><td class="px-5 py-3">Off</td><td class="px-5 py-3"><span class="rounded-full bg-brand-50 text-brand-600 px-2.5 py-1 text-xs font-medium">Active</span></td></tr>
-<tr data-status="Active" data-role="Cashier" class="hover:bg-slate-50/70"><td class="px-5 py-3 font-medium">Audit Desk</td><td class="px-5 py-3">audit@propertyerp.ug</td><td class="px-5 py-3">Cashier</td><td class="px-5 py-3">Kololo, Ntinda</td><td class="px-5 py-3">On</td><td class="px-5 py-3"><span class="rounded-full bg-brand-50 text-brand-600 px-2.5 py-1 text-xs font-medium">Active</span></td></tr>
-<tr data-status="Active" data-role="Auditor" class="hover:bg-slate-50/70"><td class="px-5 py-3 font-medium">Mary Nabirye</td><td class="px-5 py-3">mary@propertyerp.ug</td><td class="px-5 py-3">Auditor</td><td class="px-5 py-3">All</td><td class="px-5 py-3">Off</td><td class="px-5 py-3"><span class="rounded-full bg-brand-50 text-brand-600 px-2.5 py-1 text-xs font-medium">Active</span></td></tr>
-<tr data-status="Inactive" data-role="Finance Approver" class="hover:bg-slate-50/70"><td class="px-5 py-3 font-medium">Jonah Kiggundu</td><td class="px-5 py-3">jonah@propertyerp.ug</td><td class="px-5 py-3">Finance Approver</td><td class="px-5 py-3">Kololo, Ntinda</td><td class="px-5 py-3">On</td><td class="px-5 py-3"><span class="rounded-full bg-slate-100 text-slate-600 px-2.5 py-1 text-xs font-medium">Inactive</span></td></tr>
-<tr data-status="Active" data-role="Procurement Officer" class="hover:bg-slate-50/70"><td class="px-5 py-3 font-medium">Irene Achieng</td><td class="px-5 py-3">irene@propertyerp.ug</td><td class="px-5 py-3">Procurement Officer</td><td class="px-5 py-3">Kololo, Ntinda</td><td class="px-5 py-3">Off</td><td class="px-5 py-3"><span class="rounded-full bg-brand-50 text-brand-600 px-2.5 py-1 text-xs font-medium">Active</span></td></tr>
-<tr data-status="Active" data-role="Property Manager" class="hover:bg-slate-50/70"><td class="px-5 py-3 font-medium">Samuel Ocen</td><td class="px-5 py-3">samuel@propertyerp.ug</td><td class="px-5 py-3">Property Manager</td><td class="px-5 py-3">All</td><td class="px-5 py-3">On</td><td class="px-5 py-3"><span class="rounded-full bg-brand-50 text-brand-600 px-2.5 py-1 text-xs font-medium">Active</span></td></tr>
-</tbody></table></div></section>
+        <div class="flex flex-wrap items-center justify-between gap-3">
+          <div>
+            <h1 class="text-xl font-bold tracking-tight text-slate-900">Users &amp; RBAC</h1>
+            <p class="mt-1 text-sm text-slate-500">Roles restrict financial ops and property scope — page cards for every module</p>
+          </div>
+          <div class="flex flex-wrap gap-2">
+            <button type="button" data-action="open-modal" data-modal="add-user" class="rounded-xl bg-slate-900 px-4 py-2 text-sm font-semibold text-white">Invite User</button>
+          </div>
+        </div>
+
+        <div class="grid gap-4 sm:grid-cols-2 xl:grid-cols-4">
+          <div class="db-card p-5"><p class="text-sm text-slate-500">Users</p><p id="rbac-stat-users" class="mt-1 text-2xl font-bold text-slate-900">—</p></div>
+          <div class="db-card p-5"><p class="text-sm text-slate-500">Active</p><p id="rbac-stat-active" class="mt-1 text-2xl font-bold text-brand-600">—</p></div>
+          <div class="db-card p-5"><p class="text-sm text-slate-500">Roles</p><p id="rbac-stat-roles" class="mt-1 text-2xl font-bold text-slate-900">—</p></div>
+          <div class="db-card p-5"><p class="text-sm text-slate-500">Pages covered</p><p id="rbac-stat-pages" class="mt-1 text-2xl font-bold text-sky-600">—</p></div>
+        </div>
+
+        <section class="space-y-3">
+          <div>
+            <h2 class="text-base font-bold text-slate-900">Role cards</h2>
+            <p class="text-sm text-slate-500">Who can touch money, portfolio, and admin</p>
+          </div>
+          <div id="rbac-roles" class="grid gap-3 sm:grid-cols-2 xl:grid-cols-4"></div>
+        </section>
+
+        <section class="space-y-3">
+          <div class="flex flex-wrap items-end justify-between gap-2">
+            <div>
+              <h2 class="text-base font-bold text-slate-900">Page access cards</h2>
+              <p class="text-sm text-slate-500">Every app page with Full / Write / View / None by role</p>
+            </div>
+            <div class="flex flex-wrap gap-2 text-[10px] font-semibold uppercase tracking-wide">
+              <span class="rounded-full bg-brand-50 px-2 py-1 text-brand-700">Full</span>
+              <span class="rounded-full bg-sky-50 px-2 py-1 text-sky-700">Write</span>
+              <span class="rounded-full bg-amber-50 px-2 py-1 text-amber-700">View</span>
+              <span class="rounded-full bg-slate-100 px-2 py-1 text-slate-400">None</span>
+            </div>
+          </div>
+          <div id="rbac-page-cards" class="space-y-6"></div>
+        </section>
+
+        <section class="db-card overflow-hidden">
+          <div class="flex flex-wrap items-center justify-between gap-2 border-b border-slate-100 px-5 py-4">
+            <div>
+              <h2 class="text-base font-bold text-slate-900">Permission matrix</h2>
+              <p class="text-xs text-slate-400">All pages × all roles</p>
+            </div>
+          </div>
+          <div class="overflow-x-auto">
+            <table class="w-full min-w-[980px] text-left text-xs">
+              <thead id="rbac-matrix-head" class="bg-slate-50 text-[10px] uppercase tracking-wide text-slate-400"></thead>
+              <tbody id="rbac-matrix-body" class="divide-y divide-slate-100"></tbody>
+            </table>
+          </div>
+        </section>
+
+        <section class="db-card overflow-hidden">
+          <div class="flex flex-wrap items-center justify-between gap-2 border-b border-slate-100 px-5 py-4">
+            <div>
+              <h2 class="text-base font-bold text-slate-900">Directory</h2>
+              <p class="text-xs text-slate-400">Assigned users, MFA and property scope</p>
+            </div>
+          </div>
+          <div data-table-toolbar class="flex flex-wrap items-center gap-2 border-b border-slate-100 p-4">
+            <input data-table-search type="search" placeholder="Search users…" class="rounded-lg border border-slate-200 bg-slate-50 px-3 py-2 text-sm outline-none focus:border-brand-300 focus:bg-white" />
+          </div>
+          <div class="overflow-x-auto">
+            <table class="w-full min-w-[800px] text-left text-sm">
+              <thead class="bg-slate-50 text-xs uppercase tracking-wide text-slate-400">
+                <tr>
+                  <th class="px-5 py-3 font-medium">User</th>
+                  <th class="px-5 py-3 font-medium">Email</th>
+                  <th class="px-5 py-3 font-medium">Role</th>
+                  <th class="px-5 py-3 font-medium">Property scope</th>
+                  <th class="px-5 py-3 font-medium">MFA</th>
+                  <th class="px-5 py-3 font-medium">Status</th>
+                </tr>
+              </thead>
+              <tbody id="users-table-body" class="divide-y divide-slate-100" data-filterable></tbody>
+            </table>
+          </div>
+        </section>
       </div>
     </main>
   </div>
@@ -57,6 +111,7 @@
   <script src="js/tables.js"></script>
   <script src="js/app.js"></script>
   <script src="js/properties-data.js"></script>
+  <script src="js/users-page.js"></script>
   <script src="js/whatsapp-bot.js"></script>
 </body>
 </html>
