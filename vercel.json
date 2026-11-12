@@ -2,6 +2,12 @@
   "cleanUrls": true,
   "trailingSlash": false,
   "rewrites": [
-    { "source": "/", "destination": "/login.html" }
+    { "source": "/", "destination": "/login.html" },
+    { "source": "/property/:id", "destination": "/property.html?id=:id" },
+    { "source": "/properties/:id", "destination": "/property.html?id=:id" },
+    { "source": "/tenant/:id", "destination": "/tenant.html?id=:id" },
+    { "source": "/tenants/:id", "destination": "/tenant.html?id=:id" },
+    { "source": "/unit/:id", "destination": "/unit.html?id=:id" },
+    { "source": "/units/:id", "destination": "/unit.html?id=:id" }
   ]
 }

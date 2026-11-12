@@ -497,14 +497,21 @@
                 <tr><th class="px-5 py-3 font-medium">Unit</th><th class="px-5 py-3 font-medium">Type</th><th class="px-5 py-3 font-medium">Tenant</th><th class="px-5 py-3 font-medium">Rent</th><th class="px-5 py-3 font-medium">Status</th></tr>
               </thead>
               <tbody class="divide-y divide-slate-100">
-                ${(p.units || []).map((u) => `
+                ${(p.units || []).map((u) => {
+                  const unitKey = `${p.id}__${String(u.id || '').toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/(^-|-$)/g, '')}`;
+                  const unitHref = `unit.html?id=${encodeURIComponent(unitKey)}`;
+                  const tenantHref = u.tenant && u.tenant !== '—'
+                    ? (window.PropertyERP.tenantHref?.(u.tenant) || `tenant.html?id=${encodeURIComponent(String(u.tenant).toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/(^-|-$)/g, ''))}`)
+                    : null;
+                  return `
                   <tr class="hover:bg-slate-50/70">
-                    <td class="px-5 py-3 font-medium">${u.id}<div class="text-xs font-normal text-slate-400">Floor ${u.floor}</div></td>
+                    <td class="px-5 py-3 font-medium"><a href="${unitHref}" class="hover:text-brand-700 hover:underline">${u.id}</a><div class="text-xs font-normal text-slate-400">Floor ${u.floor}</div></td>
                     <td class="px-5 py-3">${u.type}</td>
-                    <td class="px-5 py-3">${u.tenant}</td>
+                    <td class="px-5 py-3">${tenantHref ? `<a href="${tenantHref}" class="hover:text-brand-700 hover:underline">${u.tenant}</a>` : (u.tenant || '—')}</td>
                     <td class="px-5 py-3">${money(u.rent, 'table')}</td>
                     <td class="px-5 py-3">${statusPill(u.status)}</td>
-                  </tr>`).join('')}
+                  </tr>`;
+                }).join('')}
               </tbody>
             </table>
           </div>
@@ -522,13 +529,17 @@
                 <tr><th class="px-5 py-3 font-medium">Tenant</th><th class="px-5 py-3 font-medium">Unit</th><th class="px-5 py-3 font-medium">Days</th><th class="px-5 py-3 font-medium">Amount</th></tr>
               </thead>
               <tbody class="divide-y divide-slate-100">
-                ${(p.arrearsList || []).map((a) => `
+                ${(p.arrearsList || []).map((a) => {
+                  const tenantHref = window.PropertyERP.tenantHref?.(a.tenant) || `tenant.html?id=${encodeURIComponent(String(a.tenant).toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/(^-|-$)/g, ''))}`;
+                  const unitKey = `${p.id}__${String(a.unit || '').toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/(^-|-$)/g, '')}`;
+                  return `
                   <tr class="hover:bg-slate-50/70">
-                    <td class="px-5 py-3 font-medium">${a.tenant}</td>
-                    <td class="px-5 py-3">${a.unit}</td>
+                    <td class="px-5 py-3 font-medium"><a href="${tenantHref}" class="hover:text-brand-700 hover:underline">${a.tenant}</a></td>
+                    <td class="px-5 py-3"><a href="unit.html?id=${encodeURIComponent(unitKey)}" class="hover:text-brand-700 hover:underline">${a.unit}</a></td>
                     <td class="px-5 py-3"><span class="font-medium ${a.days > 30 ? 'text-rose-600' : 'text-amber-600'}">${a.days}d</span></td>
                     <td class="px-5 py-3">${money(a.amount, 'table')}</td>
-                  </tr>`).join('')}
+                  </tr>`;
+                }).join('')}
               </tbody>
             </table>
           </div>` : `<p class="p-5 text-sm text-slate-500">No arrears on this property.</p>`}
@@ -580,14 +591,18 @@
             </div>
             <div>
               <p class="mb-2 text-xs font-semibold uppercase tracking-wide text-slate-400">Leases expiring soon</p>
-              ${(p.leasesExpiring || []).length ? `<ul class="space-y-2">${(p.leasesExpiring || []).map((l) => `
+              ${(p.leasesExpiring || []).length ? `<ul class="space-y-2">${(p.leasesExpiring || []).map((l) => {
+                const tenantHref = window.PropertyERP.tenantHref?.(l.tenant) || `tenant.html?id=${encodeURIComponent(String(l.tenant).toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/(^-|-$)/g, ''))}`;
+                const unitKey = `${p.id}__${String(l.unit || '').toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/(^-|-$)/g, '')}`;
+                return `
                 <li class="flex flex-wrap items-center justify-between gap-2 rounded-xl bg-slate-50 px-3 py-3 text-sm">
                   <div>
-                    <p class="font-medium text-slate-800">${l.tenant}</p>
-                    <p class="text-xs text-slate-400">${l.unit} · expires ${l.expiry}</p>
+                    <p class="font-medium text-slate-800"><a href="${tenantHref}" class="hover:text-brand-700 hover:underline">${l.tenant}</a></p>
+                    <p class="text-xs text-slate-400"><a href="unit.html?id=${encodeURIComponent(unitKey)}" class="hover:underline">${l.unit}</a> · expires ${l.expiry}</p>
                   </div>
                   ${money(l.rent, 'inline')}
-                </li>`).join('')}</ul>` : `<p class="text-sm text-slate-500">No upcoming expiries in the next 90 days.</p>`}
+                </li>`;
+              }).join('')}</ul>` : `<p class="text-sm text-slate-500">No upcoming expiries in the next 90 days.</p>`}
             </div>
           </div>
         </section>
@@ -610,8 +625,7 @@
     const root = document.getElementById('property-detail-root');
     if (!root || !window.PropertyERP?.getProperty) return;
 
-    const params = new URLSearchParams(window.location.search);
-    const id = params.get('id') || params.get('property') || 'kololo-heights';
+    const id = window.PropertyERP.routeId?.(['id', 'property']) || new URLSearchParams(window.location.search).get('id') || 'kololo-heights';
     const property = window.PropertyERP.getProperty(id);
 
     if (!property) {
