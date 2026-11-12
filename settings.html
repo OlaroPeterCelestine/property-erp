@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Property ERP — Settings</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="js/tailwind-config.js"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="https://use.hugeicons.com/font/icons.css" />
+  <link rel="stylesheet" href="css/app.css" />
+</head>
+<body class="bg-surface text-slate-800 antialiased" data-page="settings" data-role="System Administrator">
+  <div id="app-shell" class="flex min-h-screen">
+    <main class="min-w-0 flex-1">
+      <div id="header-root"></div>
+      <div class="space-y-6 p-4 sm:p-6">
+<div class="flex flex-wrap items-center justify-between gap-3"><div><h1 class="text-xl font-bold tracking-tight text-slate-900">System Settings</h1><p class="mt-1 text-sm text-slate-500">Organization, tax configuration, FX and automation</p></div><div class="flex flex-wrap gap-2"></div></div>
+<div class="grid gap-4 lg:grid-cols-2">
+  <section class="db-card p-5 space-y-3">
+    <h2 class="text-base font-bold">Organization</h2>
+    <label class="block text-sm"><span class="mb-1 block font-medium">Legal name</span><input class="field" value="Okello Property Holdings Ltd" /></label>
+    <label class="block text-sm"><span class="mb-1 block font-medium">TIN</span><input class="field" value="1000789456" /></label>
+    <label class="block text-sm"><span class="mb-1 block font-medium">Jurisdiction</span><select class="field"><option>Uganda (URA)</option><option>Kenya</option><option>Custom</option></select></label>
+  </section>
+  <section class="db-card p-5 space-y-3">
+    <h2 class="text-base font-bold">Tax &amp; currency</h2>
+    <label class="block text-sm"><span class="mb-1 block font-medium">Default VAT rate</span><input class="field" value="18%" /></label>
+    <label class="block text-sm"><span class="mb-1 block font-medium">Default WHT (services)</span><input class="field" value="6%" /></label>
+    <label class="block text-sm"><span class="mb-1 block font-medium">FX (USD → UGX)</span><input class="field" value="3700" /></label>
+    <label class="block text-sm"><span class="mb-1 block font-medium">Display currency</span><select class="field"><option>UGX + USD</option><option>UGX only</option><option>USD only</option></select></label>
+  </section>
+  <section class="db-card p-5 space-y-3">
+    <h2 class="text-base font-bold">Automation</h2>
+    <label class="flex items-center gap-2 text-sm"><input type="checkbox" checked class="rounded border-slate-300 text-brand-500" /> Auto monthly rent invoicing</label>
+    <label class="flex items-center gap-2 text-sm"><input type="checkbox" checked class="rounded border-slate-300 text-brand-500" /> Overdue rent reminders</label>
+    <label class="flex items-center gap-2 text-sm"><input type="checkbox" checked class="rounded border-slate-300 text-brand-500" /> Lease expiry alerts (60 days)</label>
+    <label class="flex items-center gap-2 text-sm"><input type="checkbox" class="rounded border-slate-300 text-brand-500" /> Auto bank payment (requires mandate)</label>
+  </section>
+  <section class="db-card p-5 space-y-3">
+    <h2 class="text-base font-bold">Save</h2>
+    <p class="text-sm text-slate-500">Tax rate changes are versioned by effective date and never rewrite history.</p>
+    <button type="button" data-action="save-settings" class="rounded-xl bg-slate-900 px-4 py-2 text-sm font-semibold text-white">Save Settings</button>
+  </section>
+</div>
+
+      </div>
+    </main>
+  </div>
+  <script src="js/money.js"></script>
+  <script src="js/layout.js"></script>
+  <script src="js/uploads.js"></script>
+  <script src="js/tables.js"></script>
+  <script src="js/app.js"></script>
+  <script src="js/whatsapp-bot.js"></script>
+</body>
+</html>

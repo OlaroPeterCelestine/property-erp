@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Property ERP — Month Close</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="js/tailwind-config.js"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="https://use.hugeicons.com/font/icons.css" />
+  <link rel="stylesheet" href="css/app.css" />
+</head>
+<body class="bg-surface text-slate-800 antialiased" data-page="closing" data-role="Accountant">
+  <div id="app-shell" class="flex min-h-screen">
+    <main class="min-w-0 flex-1">
+      <div id="header-root"></div>
+      <div class="space-y-6 p-4 sm:p-6">
+<div class="flex flex-wrap items-center justify-between gap-3"><div><h1 class="text-xl font-bold tracking-tight text-slate-900">Monthly Financial Closing</h1><p class="mt-1 text-sm text-slate-500">Controlled checklist — closed periods are protected</p></div><div class="flex flex-wrap gap-2"><button type="button" data-action="close-month" class="rounded-xl bg-slate-900 px-4 py-2 text-sm font-semibold text-white">Submit for Approval</button></div></div><div class="grid gap-4 sm:grid-cols-3"><div class="db-card p-5"><p class="text-sm text-slate-500">Period</p><p class="mt-1 text-2xl font-bold text-slate-900">November 2026</p></div><div class="db-card p-5"><p class="text-sm text-slate-500">Status</p><p class="mt-1 text-2xl font-bold text-amber-600">In progress</p></div><div class="db-card p-5"><p class="text-sm text-slate-500">Checklist</p><p class="mt-1 text-2xl font-bold text-slate-900">9 / 13</p></div></div><section class="db-card p-5"><h2 class="mb-4 text-base font-bold">Closing checklist</h2><ul class="space-y-2"><li class="flex items-center justify-between rounded-xl bg-slate-50 px-4 py-3 text-sm"><span>Generate rent invoices</span><span class="text-brand-600 font-medium">Done</span></li><li class="flex items-center justify-between rounded-xl bg-slate-50 px-4 py-3 text-sm"><span>Verify rent collections</span><span class="text-brand-600 font-medium">Done</span></li><li class="flex items-center justify-between rounded-xl bg-slate-50 px-4 py-3 text-sm"><span>Review unpaid tenant balances</span><span class="text-brand-600 font-medium">Done</span></li><li class="flex items-center justify-between rounded-xl bg-slate-50 px-4 py-3 text-sm"><span>Record outstanding expenses</span><span class="text-brand-600 font-medium">Done</span></li><li class="flex items-center justify-between rounded-xl bg-slate-50 px-4 py-3 text-sm"><span>Review supplier invoices</span><span class="text-brand-600 font-medium">Done</span></li><li class="flex items-center justify-between rounded-xl bg-slate-50 px-4 py-3 text-sm"><span>Reconcile bank accounts</span><span class="text-amber-600 font-medium">Pending</span></li><li class="flex items-center justify-between rounded-xl bg-slate-50 px-4 py-3 text-sm"><span>Review VAT calculations</span><span class="text-brand-600 font-medium">Done</span></li><li class="flex items-center justify-between rounded-xl bg-slate-50 px-4 py-3 text-sm"><span>Review WHT calculations</span><span class="text-brand-600 font-medium">Done</span></li><li class="flex items-center justify-between rounded-xl bg-slate-50 px-4 py-3 text-sm"><span>Generate trial balance</span><span class="text-brand-600 font-medium">Done</span></li><li class="flex items-center justify-between rounded-xl bg-slate-50 px-4 py-3 text-sm"><span>Generate financial statements</span><span class="text-amber-600 font-medium">Pending</span></li><li class="flex items-center justify-between rounded-xl bg-slate-50 px-4 py-3 text-sm"><span>Review discrepancies</span><span class="text-amber-600 font-medium">Pending</span></li><li class="flex items-center justify-between rounded-xl bg-slate-50 px-4 py-3 text-sm"><span>Accountant approval</span><span class="text-amber-600 font-medium">Pending</span></li><li class="flex items-center justify-between rounded-xl bg-slate-50 px-4 py-3 text-sm"><span>Close accounting period</span><span class="text-amber-600 font-medium">Pending</span></li></ul></section>
+      </div>
+    </main>
+  </div>
+  <script src="js/money.js"></script>
+  <script src="js/layout.js"></script>
+  <script src="js/uploads.js"></script>
+  <script src="js/tables.js"></script>
+  <script src="js/app.js"></script>
+  <script src="js/whatsapp-bot.js"></script>
+</body>
+</html>

@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Property ERP — Documents</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="js/tailwind-config.js"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="https://use.hugeicons.com/font/icons.css" />
+  <link rel="stylesheet" href="css/app.css" />
+</head>
+<body class="bg-surface text-slate-800 antialiased" data-page="documents" data-role="Property Manager">
+  <div id="app-shell" class="flex min-h-screen">
+    <main class="min-w-0 flex-1">
+      <div id="header-root"></div>
+      <div class="space-y-6 p-4 sm:p-6">
+        <div class="flex flex-wrap items-center justify-between gap-3">
+          <div>
+            <h1 class="text-xl font-bold tracking-tight text-slate-900">Document Management</h1>
+            <p class="mt-1 text-sm text-slate-500">Leases, IDs, invoices, tax returns, certificates and property photos</p>
+          </div>
+          <div class="flex flex-wrap gap-2">
+            <button type="button" data-action="open-modal" data-modal="upload-document" class="rounded-xl bg-slate-900 px-4 py-2 text-sm font-semibold text-white">Upload Document</button>
+          </div>
+        </div>
+
+        <section class="db-card p-5">
+          <div id="documents-drop-host"></div>
+          <p class="mt-3 text-xs text-slate-400">Quick drop also works from the Upload Document button. Uploaded files stay in this browser for the demo.</p>
+        </section>
+
+        <section class="db-card overflow-hidden">
+          <div class="flex flex-wrap gap-2 border-b border-slate-100 p-4">
+            <input data-table-search type="search" placeholder="Search..." class="rounded-lg border border-slate-200 bg-slate-50 px-3 py-2 text-sm outline-none focus:border-brand-300 focus:bg-white" />
+            <select class="rounded-lg border border-slate-200 px-3 py-2 text-sm">
+              <option>All categories</option>
+              <option>Lease</option>
+              <option>Tax</option>
+              <option>Invoice</option>
+              <option>Property photo</option>
+            </select>
+          </div>
+          <div class="overflow-x-auto">
+            <table class="w-full min-w-[800px] text-left text-sm">
+              <thead class="bg-slate-50 text-xs uppercase tracking-wide text-slate-400">
+                <tr>
+                  <th class="px-5 py-3 font-medium">Document</th>
+                  <th class="px-5 py-3 font-medium">Category</th>
+                  <th class="px-5 py-3 font-medium">Linked to</th>
+                  <th class="px-5 py-3 font-medium">Uploaded</th>
+                  <th class="px-5 py-3 font-medium">Expires</th>
+                  <th class="px-5 py-3 font-medium">Access</th>
+                </tr>
+              </thead>
+              <tbody id="documents-table-body" class="divide-y divide-slate-100" data-filterable>
+                <tr class="hover:bg-slate-50/70"><td class="px-5 py-3 font-medium">LSE-2024-088.pdf</td><td class="px-5 py-3">Lease</td><td class="px-5 py-3">Nakato Holdings</td><td class="px-5 py-3">02 Jan 2024</td><td class="px-5 py-3">31 Dec 2026</td><td class="px-5 py-3"><span class="rounded-full bg-violet-50 text-violet-600 px-2.5 py-1 text-xs font-medium">Restricted</span></td></tr>
+                <tr class="hover:bg-slate-50/70"><td class="px-5 py-3 font-medium">VAT-Nov-Draft.pdf</td><td class="px-5 py-3">Tax return</td><td class="px-5 py-3">Nov 2026 period</td><td class="px-5 py-3">11 Nov 2026</td><td class="px-5 py-3">—</td><td class="px-5 py-3"><span class="rounded-full bg-sky-50 text-sky-600 px-2.5 py-1 text-xs font-medium">Finance only</span></td></tr>
+                <tr class="hover:bg-slate-50/70"><td class="px-5 py-3 font-medium">WHT-Cert-218.pdf</td><td class="px-5 py-3">WHT certificate</td><td class="px-5 py-3">CoolAir Services</td><td class="px-5 py-3">05 Nov 2026</td><td class="px-5 py-3">—</td><td class="px-5 py-3"><span class="rounded-full bg-sky-50 text-sky-600 px-2.5 py-1 text-xs font-medium">Finance only</span></td></tr>
+              </tbody>
+            </table>
+          </div>
+        </section>
+      </div>
+    </main>
+  </div>
+  <script src="js/money.js"></script>
+  <script src="js/uploads.js"></script>
+  <script src="js/layout.js"></script>
+  <script src="js/tables.js"></script>
+  <script src="js/app.js"></script>
+  <script src="js/whatsapp-bot.js"></script>
+  <script>
+    (function () {
+      function accessPill(access) {
+        const cls = access === 'Finance only' ? 'bg-sky-50 text-sky-600' : 'bg-violet-50 text-violet-600';
+        return `<span class="rounded-full ${cls} px-2.5 py-1 text-xs font-medium">${access}</span>`;
+      }
+
+      function toast(message) {
+        let root = document.getElementById('toast-root');
+        if (!root) {
+          root = document.createElement('div');
+          root.id = 'toast-root';
+          root.className = 'toast-root';
+          document.body.appendChild(root);
+        }
+        const el = document.createElement('div');
+        el.className = 'toast toast-ok';
+        el.innerHTML = `<i class="hgi-stroke hgi-checkmark-circle-01 text-[16px]"></i><span>${message}</span>`;
+        root.appendChild(el);
+        requestAnimationFrame(() => el.classList.add('show'));
+        setTimeout(() => { el.classList.remove('show'); setTimeout(() => el.remove(), 220); }, 2800);
+      }
+
+      function renderUploadedRows() {
+        const body = document.getElementById('documents-table-body');
+        if (!body || !window.PropertyERPUploads) return;
+        body.querySelectorAll('[data-uploaded-row]').forEach((row) => row.remove());
+        window.PropertyERPUploads.getDocuments().forEach((doc) => {
+          const tr = document.createElement('tr');
+          tr.className = 'hover:bg-slate-50/70';
+          tr.dataset.uploadedRow = '1';
+          const thumb = doc.previewUrl
+            ? `<img src="${doc.previewUrl}" alt="" class="h-8 w-8 rounded-lg object-cover ring-1 ring-slate-200" />`
+            : `<span class="flex h-8 w-8 items-center justify-center rounded-lg bg-slate-100 text-slate-500"><i class="hgi-stroke hgi-file-02 text-[14px]"></i></span>`;
+          tr.innerHTML = `
+            <td class="px-5 py-3 font-medium">
+              <div class="flex items-center gap-3">${thumb}<div><div>${doc.name}</div><div class="text-xs font-normal text-slate-400">${doc.fileName} · ${window.PropertyERPUploads.formatBytes(doc.size)}</div></div></div>
+            </td>
+            <td class="px-5 py-3">${doc.category}</td>
+            <td class="px-5 py-3">${doc.link}</td>
+            <td class="px-5 py-3">${doc.uploadedAt}</td>
+            <td class="px-5 py-3">${doc.expires || '—'}</td>
+            <td class="px-5 py-3">${accessPill(doc.access || 'Restricted')}</td>`;
+          body.prepend(tr);
+        });
+      }
+
+      function setupQuickDrop() {
+        const host = document.getElementById('documents-drop-host');
+        if (!host || !window.PropertyERPUploads) return;
+        host.innerHTML = window.PropertyERPUploads.dropzoneHtml({
+          name: 'quick-doc',
+          label: 'Quick upload',
+          hint: 'Drop property photos, leases or tax PDFs here',
+          accept: window.PropertyERPUploads.DOC_ACCEPT,
+          imagesOnly: false,
+        });
+        window.PropertyERPUploads.bindAll(host);
+
+        host.addEventListener('property-erp:file-prepared', (e) => {
+          const prepared = e.detail?.prepared;
+          const zone = e.detail?.zone;
+          if (!prepared || !zone) return;
+          window.PropertyERPUploads.addDocument({
+            id: `DOC-${Date.now()}`,
+            name: prepared.name.replace(/\.[^.]+$/, '') || prepared.name,
+            fileName: prepared.name,
+            category: prepared.kind === 'image' ? 'Property photo' : 'Document',
+            link: 'Unassigned',
+            kind: prepared.kind,
+            size: prepared.size,
+            previewUrl: prepared.previewUrl,
+            uploadedAt: new Date().toISOString().slice(0, 10),
+            expires: '—',
+            access: 'Restricted',
+          });
+          setTimeout(() => {
+            window.PropertyERPUploads.clearZone(zone);
+            renderUploadedRows();
+          }, 250);
+          toast(`“${prepared.name}” uploaded.`);
+          document.dispatchEvent(new CustomEvent('property-erp:documents-changed'));
+        });
+      }
+
+      function initDocs() {
+        setupQuickDrop();
+        renderUploadedRows();
+        document.addEventListener('property-erp:documents-changed', () => {
+          renderUploadedRows();
+          window.PropertyERPTables?.refresh();
+        });
+      }
+
+      if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', initDocs);
+      else initDocs();
+    })();
+  </script>
+</body>
+</html>
