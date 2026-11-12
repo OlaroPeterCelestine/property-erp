@@ -485,6 +485,11 @@
         </section>
       </div>
 
+      <div class="flex flex-wrap items-center gap-2">
+        <span class="rounded-full bg-slate-100 px-2.5 py-1 text-xs font-semibold text-slate-600">360° building</span>
+        <span class="text-xs text-slate-400">Units · tenants · arrears · IoT · P&amp;L · documents context</span>
+      </div>
+
       <div class="grid gap-4 xl:grid-cols-2">
         <section class="db-card overflow-hidden">
           <div class="flex items-center justify-between border-b border-slate-100 px-5 py-4">
@@ -545,6 +550,48 @@
           </div>` : `<p class="p-5 text-sm text-slate-500">No arrears on this property.</p>`}
         </section>
       </div>
+
+      <section class="db-card overflow-hidden">
+        <div class="flex items-center justify-between border-b border-slate-100 px-5 py-4">
+          <div>
+            <h2 class="text-base font-bold text-slate-900">Tenant roster</h2>
+            <p class="text-xs text-slate-400">Every occupant on this building with ledger links</p>
+          </div>
+          <a href="tenants.html" class="text-sm font-medium text-brand-600 hover:underline">All tenants</a>
+        </div>
+        <div class="overflow-x-auto">
+          <table class="w-full min-w-[720px] text-left text-sm">
+            <thead class="bg-slate-50 text-xs uppercase tracking-wide text-slate-400">
+              <tr>
+                <th class="px-5 py-3 font-medium">Tenant</th>
+                <th class="px-5 py-3 font-medium">Unit</th>
+                <th class="px-5 py-3 font-medium">Phone</th>
+                <th class="px-5 py-3 font-medium">Rent</th>
+                <th class="px-5 py-3 font-medium">Balance</th>
+                <th class="px-5 py-3 font-medium">Risk</th>
+                <th class="px-5 py-3 font-medium"></th>
+              </tr>
+            </thead>
+            <tbody class="divide-y divide-slate-100">
+              ${(p.units || []).filter((u) => u.tenant && u.tenant !== '—').map((u) => {
+                const tenant = window.PropertyERP.getTenant?.(u.tenant);
+                const tenantHref = window.PropertyERP.tenantHref?.(u.tenant) || `tenant.html?id=${encodeURIComponent(String(u.tenant).toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/(^-|-$)/g, ''))}`;
+                const unitKey = `${p.id}__${String(u.id || '').toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/(^-|-$)/g, '')}`;
+                return `
+                <tr class="hover:bg-slate-50/70">
+                  <td class="px-5 py-3 font-medium"><a href="${tenantHref}" class="hover:text-brand-700 hover:underline">${u.tenant}</a></td>
+                  <td class="px-5 py-3"><a href="unit.html?id=${encodeURIComponent(unitKey)}" class="hover:text-brand-700 hover:underline">${u.id}</a></td>
+                  <td class="px-5 py-3">${tenant?.phone || '—'}</td>
+                  <td class="px-5 py-3">${money(u.rent, 'table')}</td>
+                  <td class="px-5 py-3 ${(tenant?.balance || 0) > 0 ? 'text-rose-500' : 'text-brand-600'}">${money(tenant?.balance || 0, 'table')}</td>
+                  <td class="px-5 py-3">${statusPill(tenant?.risk || 'Low')}</td>
+                  <td class="px-5 py-3 text-right"><a href="${tenantHref}" class="font-semibold text-brand-700 hover:underline">360 →</a></td>
+                </tr>`;
+              }).join('') || `<tr><td colspan="7" class="px-5 py-8 text-center text-slate-400">No occupied units with named tenants.</td></tr>`}
+            </tbody>
+          </table>
+        </div>
+      </section>
 
       <div class="grid gap-4 xl:grid-cols-2">
         <section class="db-card overflow-hidden">
