@@ -32,6 +32,8 @@
     { section: 'Insights', items: [
       { id: 'reports', href: 'reports.html', label: 'Reports', icon: 'chart-bar-line' },
       { id: 'documents', href: 'documents.html', label: 'Documents', icon: 'folder-02' },
+    ]},
+    { section: 'Admin', items: [
       { id: 'users', href: 'users.html', label: 'Users & Roles', icon: 'user-settings-01' },
       { id: 'settings', href: 'settings.html', label: 'Settings', icon: 'settings-01' },
     ]},
@@ -79,14 +81,13 @@
 
         <nav class="sidebar-nav flex-1 space-y-0.5 overflow-y-auto text-[13px] font-medium">${navHtml}</nav>
 
-        <div class="cta-card mt-3 rounded-2xl border border-slate-200 bg-white p-4">
-          <div class="mb-2 flex h-9 w-9 items-center justify-center rounded-lg bg-brand-700 text-white">${hi('calendar-check', 'text-[16px]')}</div>
-          <p class="text-sm font-semibold text-slate-900">Try Month Close</p>
-          <p class="mt-1 text-[11px] leading-relaxed text-slate-500">Run rent, VAT/WHT and closing from one checklist.</p>
-          <div class="mt-3 grid grid-cols-2 gap-2">
-            <a href="closing.html" class="inline-flex items-center justify-center rounded-xl bg-slate-900 px-2 py-2 text-[11px] font-semibold text-white hover:bg-slate-800">Open Close</a>
-            <a href="reports.html" class="inline-flex items-center justify-center rounded-xl border border-slate-200 bg-white px-2 py-2 text-[11px] font-semibold text-slate-600 hover:bg-slate-50">Reports</a>
-          </div>
+        <div class="sidebar-account mt-3 space-y-1 rounded-2xl border border-slate-200 bg-white p-2">
+          <a href="users.html" class="nav-item flex items-center gap-2 rounded-xl px-2.5 py-2.5 text-[12px] font-semibold text-slate-700 hover:bg-slate-50" title="Users & Roles">
+            ${hi('user-settings-01', 'text-[16px] text-slate-500')}<span class="nav-label">Users &amp; Roles</span>
+          </a>
+          <button type="button" data-sidebar-logout class="nav-item flex w-full items-center gap-2 rounded-xl px-2.5 py-2.5 text-[12px] font-semibold text-rose-600 hover:bg-rose-50" title="Sign out">
+            ${hi('logout-01', 'text-[16px]')}<span class="nav-label">Sign out</span>
+          </button>
         </div>
       </aside>
       <div id="sidebar-overlay" class="sidebar-overlay"></div>
@@ -112,24 +113,37 @@
         </div>
 
         <div class="ml-auto flex items-center gap-2">
-          <div class="hidden items-center gap-1.5 rounded-full border border-brand-100 bg-brand-50 px-3 py-2 text-xs font-medium text-brand-700 sm:inline-flex">
+          <div class="hidden items-center gap-1.5 rounded-full border border-brand-100 bg-brand-50 px-3 py-2 text-xs font-medium text-brand-700 lg:inline-flex">
             ${hi('location-01', 'text-[14px]')}
             Kampala · UGX (USD)
           </div>
+          <a href="users.html" class="inline-flex h-11 items-center gap-1.5 rounded-full border border-slate-200 bg-white px-3 text-xs font-semibold text-slate-700 shadow-soft hover:bg-slate-50" title="Users & Roles">
+            ${hi('user-settings-01', 'text-[15px]')}<span class="hidden sm:inline">Users</span>
+          </a>
           <button type="button" data-action="open-modal" data-modal="notifications" class="relative flex h-11 w-11 items-center justify-center rounded-full border border-slate-200 bg-white text-slate-500 shadow-soft hover:bg-slate-50" aria-label="Notifications">
             ${hi('notification-03', 'text-[18px]')}
             <span class="absolute right-2.5 top-2.5 h-2 w-2 rounded-full bg-rose-500 ring-2 ring-white"></span>
           </button>
-          <button type="button" id="logout-btn" class="hidden h-11 items-center gap-1.5 rounded-full border border-slate-200 bg-white px-3 text-xs font-semibold text-slate-600 shadow-soft hover:bg-slate-50 sm:inline-flex" title="Sign out">
-            ${hi('logout-01', 'text-[15px]')} Sign out
+          <button type="button" id="logout-btn" class="inline-flex h-11 items-center gap-1.5 rounded-full border border-rose-200 bg-white px-3 text-xs font-semibold text-rose-600 shadow-soft hover:bg-rose-50" title="Sign out">
+            ${hi('logout-01', 'text-[15px]')}<span class="hidden sm:inline">Sign out</span>
           </button>
-          <button type="button" data-action="open-modal" data-modal="settings" class="flex items-center gap-2 rounded-full border border-slate-200 bg-white py-1.5 pl-1.5 pr-3 text-left shadow-soft hover:bg-slate-50" title="${role}">
-            <img src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=80&h=80&fit=crop&crop=face" alt="" class="h-8 w-8 rounded-full object-cover" />
-            <span class="hidden sm:block">
-              <span class="block text-xs font-semibold text-slate-800">${displayName}</span>
-              <span class="block text-[10px] text-slate-400">${role}</span>
-            </span>
-          </button>
+          <div class="relative" id="user-menu-wrap">
+            <button type="button" id="user-menu-btn" class="flex items-center gap-2 rounded-full border border-slate-200 bg-white py-1.5 pl-1.5 pr-3 text-left shadow-soft hover:bg-slate-50" title="${role}" aria-haspopup="menu" aria-expanded="false">
+              <img src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=80&h=80&fit=crop&crop=face" alt="" class="h-8 w-8 rounded-full object-cover" />
+              <span class="hidden sm:block">
+                <span class="block text-xs font-semibold text-slate-800">${displayName}</span>
+                <span class="block text-[10px] text-slate-400">${role}</span>
+              </span>
+              ${hi('arrow-down-01', 'hidden text-[12px] text-slate-400 sm:inline')}
+            </button>
+            <div id="user-menu" class="absolute right-0 top-full z-40 mt-2 hidden w-52 overflow-hidden rounded-2xl border border-slate-200 bg-white py-1 shadow-lg" role="menu">
+              <a href="users.html" class="flex items-center gap-2 px-3.5 py-2.5 text-sm text-slate-700 hover:bg-slate-50" role="menuitem">${hi('user-settings-01', 'text-[15px] text-slate-400')} Users &amp; Roles</a>
+              <a href="settings.html" class="flex items-center gap-2 px-3.5 py-2.5 text-sm text-slate-700 hover:bg-slate-50" role="menuitem">${hi('settings-01', 'text-[15px] text-slate-400')} Settings</a>
+              <button type="button" data-action="open-modal" data-modal="settings" class="flex w-full items-center gap-2 px-3.5 py-2.5 text-left text-sm text-slate-700 hover:bg-slate-50" role="menuitem">${hi('user-circle', 'text-[15px] text-slate-400')} Profile</button>
+              <div class="my-1 border-t border-slate-100"></div>
+              <button type="button" data-menu-logout class="flex w-full items-center gap-2 px-3.5 py-2.5 text-left text-sm font-semibold text-rose-600 hover:bg-rose-50" role="menuitem">${hi('logout-01', 'text-[15px]')} Sign out</button>
+            </div>
+          </div>
         </div>
       </header>
     `;
@@ -185,8 +199,24 @@
       });
     });
 
-    document.getElementById('logout-btn')?.addEventListener('click', () => {
-      window.PropertyERPAuth?.logout?.();
+    const doLogout = () => window.PropertyERPAuth?.logout?.();
+    document.getElementById('logout-btn')?.addEventListener('click', doLogout);
+    document.querySelectorAll('[data-sidebar-logout], [data-menu-logout]').forEach((btn) => {
+      btn.addEventListener('click', doLogout);
+    });
+
+    const menuBtn = document.getElementById('user-menu-btn');
+    const menu = document.getElementById('user-menu');
+    menuBtn?.addEventListener('click', (e) => {
+      e.stopPropagation();
+      const open = menu?.classList.toggle('hidden') === false;
+      menuBtn.setAttribute('aria-expanded', open ? 'true' : 'false');
+    });
+    document.addEventListener('click', (e) => {
+      const wrap = document.getElementById('user-menu-wrap');
+      if (!wrap || wrap.contains(e.target)) return;
+      menu?.classList.add('hidden');
+      menuBtn?.setAttribute('aria-expanded', 'false');
     });
   }
 

@@ -180,6 +180,14 @@ body.app-ready .login-shell {
   display: none;
 }
 
+#sidebar.collapsed .sidebar-account {
+  padding: 0.35rem;
+}
+
+#sidebar.collapsed .sidebar-account .nav-item {
+  justify-content: center;
+}
+
 #sidebar.collapsed .nav-item {
   justify-content: center;
   padding-left: 0.75rem;
