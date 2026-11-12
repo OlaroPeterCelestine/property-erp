@@ -8,6 +8,12 @@
     { "source": "/tenant/:id", "destination": "/tenant.html?id=:id" },
     { "source": "/tenants/:id", "destination": "/tenant.html?id=:id" },
     { "source": "/unit/:id", "destination": "/unit.html?id=:id" },
-    { "source": "/units/:id", "destination": "/unit.html?id=:id" }
+    { "source": "/units/:id", "destination": "/unit.html?id=:id" },
+    { "source": "/user/:id", "destination": "/user.html?id=:id" },
+    { "source": "/users/:id", "destination": "/user.html?id=:id" },
+    { "source": "/role/:id", "destination": "/role.html?id=:id" },
+    { "source": "/roles/:id", "destination": "/role.html?id=:id" },
+    { "source": "/page/:id", "destination": "/page.html?id=:id" },
+    { "source": "/pages/:id", "destination": "/page.html?id=:id" }
   ]
 }
