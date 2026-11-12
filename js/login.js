@@ -14,7 +14,6 @@
   const toggle = document.getElementById('toggle-password');
   const eye = document.getElementById('eye-icon');
   const hint = document.getElementById('login-hint');
-  const google = document.getElementById('google-signin');
   const forgot = document.getElementById('forgot-password');
   const join = document.getElementById('join-free');
 
@@ -34,10 +33,6 @@
     e.preventDefault();
     // Demo: any email/password (including empty) works
     enter(email?.value || 'demo@propertyerp.ug');
-  });
-
-  google?.addEventListener('click', () => {
-    enter('google.user@propertyerp.ug');
   });
 
   forgot?.addEventListener('click', () => {
